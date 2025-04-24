@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Read</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        form {
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        select,
+        button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            background-color: white;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            margin-bottom: 10px;
+            color: #333;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Read Your Content</h1>
+    {% if message %}
+    <div class="alert alert-danger">{{ message }}</div>
+    {% endif %}
+    <form method="post">
+        {{ form.hidden_tag() }}
+        <label for="{{ form.letter_type.id }}">{{ form.letter_type.label }}</label>
+        {{ form.letter_type(class="form-control") }}
+        {{ form.submit(class="btn btn-primary") }}
+    </form>
+    {% if letters %}
+    <h2>Your Selected Content</h2>
+    <ul>
+        {% for item in letters %}
+        {% if item.__class__.__name__ == 'Letter' %}
+        <li>
+            <h3>Title: {{ item.title }}</h3>
+            <p>Content: {{ item.content }}</p>
+            {% if item.Is_show_writer %}
+            <p>Writer: (ID: {{ item.writer_id }})</p>
+            {% endif %}
+            <p>Addressee: (ID: {{ item.addressee_id }})</p>
+        </li>
+        {% elif item.__class__.__name__ == 'News' %}
+        <li>
+            <h3>Title: {{ item.title }}</h3>
+            <p>Content: {{ item.content }}</p>
+            <p>Writer: (ID: {{ item.writer_id }})</p>
+            <p>Views Count: {{ item.views_count }}</p>
+        </li>
+        {% endif %}
+        {% endfor %}
+    </ul>
+    {% endif %}
+</body>
+
+</html>

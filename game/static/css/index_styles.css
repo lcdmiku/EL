@@ -1,0 +1,46 @@
+/* 整体页面样式 */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+     background-image: url('../images/index_pic.png');;/* 假设图片在 static/images 下，这里根据实际情况调整路径 */
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* 表单样式 */
+form {
+    background-color: rgba(255, 255, 255, 0.8); /* 半透明白色背景 */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+/* 按钮样式 */
+button {
+    padding: 10px 20px;
+    margin: 5px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button[name="choice"][value="login"] {
+    background-color: #007BFF;
+    color: white;
+}
+
+button[name="choice"][value="register"] {
+    background-color: #28A745;
+    color: white;
+}
+
+button:hover {
+    opacity: 0.9;
+}

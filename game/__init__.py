@@ -1,0 +1,52 @@
+#game\__init__.py
+from ast import literal_eval
+
+from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
+import logging
+import os
+
+db = SQLAlchemy()
+migrate = Migrate()
+logging.basicConfig(level=logging.DEBUG)
+
+def init_app(app):
+    db.init_app(app)
+    migrate.init_app(app, db)
+
+def create_app(config_class='config.Config'):
+    app = Flask(__name__, static_folder='static')
+
+    image_path = os.path.join(app.static_folder, 'images', 'index_pic.png')
+    print(f"静态文件路径：{image_path}")
+    print(f"文件是否存在：{os.path.exists(image_path)}")
+    app.config.from_object(config_class)
+    # 调用 init_app 函数来初始化 SQLAlchemy 和 Flask-Migrate
+    init_app(app)
+
+    from .models.user import User
+    from .models.role import Role
+    #create all the tables
+    with app.app_context():
+        db.create_all()
+    # 配置日志
+
+    logging.debug(f"Before init_app: SQLAlchemy instance: {db}, Flask app: {app}")
+    logging.debug(f"After init_app: SQLAlchemy instance: {db}, Flask app: {app}")
+
+    # 延迟导入蓝图以避免循环导入
+    def register_blueprints():
+        from .routes.login import login_bp
+        from .routes.pet import pet_bp
+        from .routes.play import play_bp
+        from .routes.game_ui import ui_bp
+
+        app.register_blueprint(login_bp)
+        app.register_blueprint(pet_bp)
+        app.register_blueprint(play_bp)
+        app.register_blueprint(ui_bp)
+
+    register_blueprints()
+
+    return app
