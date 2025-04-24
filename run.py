@@ -1,7 +1,7 @@
 # run.py
 import sys
 from game import create_app
-import os
+
 print(sys.path)  # 打印模块搜索路径
 
 if __name__ == '__main__':
