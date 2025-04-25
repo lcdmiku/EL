@@ -26,7 +26,7 @@ def create_app(config_class='config.Config'):
     init_app(app)
 
     from .models.user import User
-    from .models.role import Role
+    from .models.NPC import NPC
     #create all the tables
     with app.app_context():
         db.create_all()
