@@ -1,46 +1,171 @@
 /* 整体页面样式 */
-body {
-    font-family: Arial, sans-serif;
+ {
     margin: 0;
     padding: 0;
-     background-image: url('../images/index_pic.png');;/* 假设图片在 static/images 下，这里根据实际情况调整路径 */
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    min-height: 100vh;
+    box-sizing: border-box;
+}
+
+html,body{
+    height: 100%;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to right,rgb(247,209,215),rgb(191,227,241));
+     /* background-image: url('../images/index_pic.png');;假设图片在 static/images 下，这里根据实际情况调整路径 */
+    display: flex;
+
+}
+
+.box {
+    width: 1050px;
+    height: 600px;
+    position: relative;
+    margin: auto;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    box-shadow: 4px 4px 3px rgba(0, 0, 0, 0.2);
+    display: flex;
+
+}
+.pre-box {
+    background-color: #edd4dc;
+    width: calc(1050px/2);
+    height: 100%;
+    left:0;
+    top: 0;
+    border-radius: 5px;
+    position: absolute;
+
+    box-shadow: 4px 4px 3px rgba(0, 0, 0, 0.2);
+    transition: 0.5s ease-in-out;
+}
+
+.pre-box h1 {
+    color: #fff;
+    margin: 100px;
+    text-align: center;
+    letter-spacing: 5px;
+    text-shadow: 4px 4px 3px rgba(0, 0, 0, 0.2);
+    font-weight: bold;
+}
+
+.pre-box p{
+    color: #fff;
+    text-align: center;
+    height: 20px;
+    line-height: 10px;
+    font-weight: bold;
+    text-shadow:  4px 4px 3px rgba(0, 0, 0, 0.2);
+    margin:20px 0;
+}
+
+.image-box{
+    width: 300px;
+    height: 300px;
+    margin: 20px auto;
+    border-radius: 50%;
+    overflow: hidden;
+    box-shadow: 4px 4px 3px rgba(0, 0, 0, 0.2);
+}
+.image-box img{
+    width:100%;
+}
+
+.login-form,
+.register-form {
+    flex: 1;
+    height: 100%;
+
+
+}
+
+
+.title-box {
+    height: 100px;
+    line-height: 150px;
+
+}
+
+.title-box h1 {
+    color: #fff;
+    text-align: center;
+    letter-spacing: 5px;
+}
+
+.input-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+
+input {
+    color: #fff;
+    width: 60%;
+    height: 40px;
+    margin-bottom: 20px;
+    text-indent: 4px;
+    border: 1px solid #a3cae3;
+    border-radius: 4px;
+    outline: none;
+}
+
+input:focus {
+
+    color: #d3efff;
+
+}
+
+input:focus::placeholder {
+    opacity: 0;
+}
+/* 表单样式 */
+form {
+
+    color: rgba(255, 255, 255, 0.8);
+    margin: 0px;
+    padding: 0px;
+    border-radius: 10px;
+
+}
+
+
+
+
+
+/* 按钮样式 */
+.btn-box  {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-/* 表单样式 */
-form {
-    background-color: rgba(255, 255, 255, 0.8); /* 半透明白色背景 */
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+.btn-box p{
+    color: #fff;
+    height: 30px;
+    line-height: 30px;
+    font-size: 14px;
 }
-
-/* 按钮样式 */
-button {
-    padding: 10px 20px;
-    margin: 5px;
-    border: none;
-    border-radius: 5px;
+.btn-box p:hover{
     cursor: pointer;
+    border-bottom: 1px solid white;
+}
+button {
+    background-color: rgb(208, 238, 255);
+    border: none;
+    line-height: 30px;
+    width: 100px;
+    height: 30px;
+    color: white;
+    border-radius: 5px;
     font-size: 16px;
 }
 
-button[name="choice"][value="login"] {
-    background-color: #007BFF;
-    color: white;
-}
-
-button[name="choice"][value="register"] {
-    background-color: #28A745;
-    color: white;
-}
-
 button:hover {
-    opacity: 0.9;
+    opacity: .8;
+    cursor: pointer;
+    transform-style: preserve-3d;
+    transform: scale(1.1);
 }

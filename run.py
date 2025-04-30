@@ -10,4 +10,4 @@ if __name__ == '__main__':
 
     app = create_app()
     game = create_app()
-    game.run(debug=True,host='10.5.47.122',port=5000)
+    game.run(debug=True,host= '10.4.61.238',port=5000)
