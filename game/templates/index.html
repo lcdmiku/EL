@@ -5,13 +5,17 @@
     <meta charset="UTF-8">
     <title>登录界面</title>
 
-
     <link rel="stylesheet" href="../static/css/index_styles.css">
     <!-- 引入 jQuery 库 -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
 <body>
+    <div class="head-box">
+        <h1>
+            温暖之境：心灵信件之旅
+        </h1>
+    </div>
     <div class="box">
         <div class="pre-box">
             <h1>WELCOME</h1>
@@ -21,11 +25,11 @@
 
             </div>
         </div>
-    <div class="register-form">
-        <div class="title-box">
-            <h1>注册</h1>
-        </div>
-            <form id="register-form" method="post" action="{{ url_for('login.register') }}">
+        <div class="register-form">
+            <div class="title-box">
+                <h1>注册</h1>
+            </div>
+            <form id="register-form">
                 <div class="input-box">
                     {{register_form.hidden_tag() }}
                     {{register_form.username.label}}
@@ -36,19 +40,24 @@
                     {{register_form.password2(placeholder="confirm password")}}
                 </div>
                 <div class="btn-box">
-                    <button type="submit">{{ register_form.submit.label }}</button>
+                    <button type="submit" onclick="myMessage(event, '/register', 'message-register')">{{ register_form.submit.label }}</button>
                     <p onclick="mySwitch()">已有账号？去登录</p>
+                </div>
+                <div class="message-box">
+                    <p id="message-register">
+                        {{ message }}
+                    </p>
                 </div>
             </form>
 
-    </div>
-    
-     
-    <div class="login-form">
-        <div class="title-box">
-            <h1>登录</h1>
         </div>
-            <form id="login-form" method="post" action="{{ url_for('login.login') }}">
+
+
+        <div class="login-form">
+            <div class="title-box">
+                <h1>登录</h1>
+            </div>
+            <form id="login-form">
                 <div class="input-box">
                     {{login_form.hidden_tag() }}
                     {{login_form.username.label}}
@@ -57,32 +66,71 @@
                     {{login_form.password(placeholder="password")}}
                 </div>
                 <div class="btn-box">
-                    <button type="submit">{{ login_form.submit.label }}</button>
+                    <button type="submit" onclick="myMessage(event, '/login', 'message-login')">{{ login_form.submit.label }}</button>
                     <p onclick="mySwitch()">没有账号？去注册</p>
+                </div>
+                <div class="message-box">
+                    <p id="message-login">
+                        {{ message }}
+                    </p>
                 </div>
             </form>
 
-    </div>
+        </div>
         <script>
             let flag = true;
-            const mySwitch=()=>{
-                if (flag){
-                    $(".pre-box").css("transform","translateX(100%)");
-                    $(".pre-box").css("background-color","#c9e0ed");
-                    $("img").attr("src","../static/images/register-welcome.png");
+            const mySwitch = () => {
+                if (flag) {
+                    $(".pre-box").css("transform", "translateX(100%)");
+                    $(".pre-box").css("background-color", "#c9e0ed");
+                    $(".image-box img").attr("src", "../static/images/register-welcome.png");
+                } else {
+                    $(".pre-box").css("transform", "translateX(0%)");
+                    $(".pre-box").css("background-color", "#edd4dc");
+                    $(".image-box img").attr("src", "../static/images/login-welcome-2.png");
                 }
-                else{
-                    $(".pre-box").css("transform","translateX(0%)");
-                    $(".pre-box").css("background-color","#edd4dc");
-                    $("img").attr("src","../static/images/login-welcome-2.png");
-                }
-                flag=!flag;
+                flag = !flag;
             }
+
+            const myMessage = (e, url, id) => {
+                e.preventDefault();
+                const form = e.target.closest('form');
+                const formData = new FormData(form);
+                console.log(e.target);
+                console.log(formData);
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    dataType: 'json',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function (data) {
+                        if (data.redirect) {
+                            window.location.href = data.redirect;
+                        } else {
+                            console.log(data);
+                            console.log('fail');
+                            const messageContainer = document.getElementById(id);
+                            messageContainer.textContent = data.message;
+                            // 设置定时器，5 秒后消息自动消失
+                            setTimeout(() => {
+                                messageContainer.style.opacity = 0;
+                                setTimeout(() => {
+                                    messageContainer.textContent = '';
+                                    messageContainer.style.opacity = 1;
+                                }, 500); // 等待 0.5 秒的过渡效果
+                            }, 5000);
+                        }
+                    },
+                    error: function (error) {
+                        console.error('Error:', error);
+                    }
+                });
+            }
+
         </script>
     </div>
 </body>
-
-
-
 
 </html>

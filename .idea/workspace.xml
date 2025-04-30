@@ -4,16 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="477d0c0d-de57-416e-9f58-e17eb7065fc7" name="更改" comment="[change]将role类更改为NPC类，为后续NPC开发铺垫，pet待想（交给策划）">
-      <change afterPath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/game/static/css/play.css" afterDir="false" />
+    <list default="true" id="477d0c0d-de57-416e-9f58-e17eb7065fc7" name="更改" comment="[change]重写index.html，并将login与register页面整合，将它两单独作为函数使用">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/game/routes/game_ui.py" beforeDir="false" afterPath="$PROJECT_DIR$/game/routes/game_ui.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/game/routes/login.py" beforeDir="false" afterPath="$PROJECT_DIR$/game/routes/login.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/game/static/css/index_styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/game/static/css/index_styles.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/game/static/js/script.js" beforeDir="false" afterPath="$PROJECT_DIR$/game/static/js/script.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/game/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/game/templates/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/game/templates/play.html" beforeDir="false" afterPath="$PROJECT_DIR$/game/templates/play.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/run.py" beforeDir="false" afterPath="$PROJECT_DIR$/run.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -154,7 +149,7 @@
       <workItem from="1744818984646" duration="51255000" />
       <workItem from="1745212450148" duration="25297000" />
       <workItem from="1745320971399" duration="4762000" />
-      <workItem from="1745404640863" duration="30323000" />
+      <workItem from="1745404640863" duration="38413000" />
     </task>
     <task id="LOCAL-00001" summary="commit--init">
       <option name="closed" value="true" />
@@ -188,7 +183,31 @@
       <option name="project" value="LOCAL" />
       <updated>1745558596674</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="[change]将role类更改为NPC类，为后续NPC开发铺垫，pet待想（交给策划）">
+      <option name="closed" value="true" />
+      <created>1745973575691</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1745973575691</updated>
+    </task>
+    <task id="LOCAL-00006" summary="[change]将role类更改为NPC类，为后续NPC开发铺垫，pet待想（交给策划）">
+      <option name="closed" value="true" />
+      <created>1745973589055</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1745973589055</updated>
+    </task>
+    <task id="LOCAL-00007" summary="[change]重写index.html，并将login与register页面整合，将它两单独作为函数使用">
+      <option name="closed" value="true" />
+      <created>1745973823250</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1745973823250</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -225,10 +244,11 @@
     <MESSAGE value="[delete]from os" />
     <MESSAGE value="Merge branch 'main' of https://git.nju.edu.cn/LCDY/el&#10;Merge remote-tracking branch 'origin/main'" />
     <MESSAGE value="[change]将role类更改为NPC类，为后续NPC开发铺垫，pet待想（交给策划）" />
-    <option name="LAST_COMMIT_MESSAGE" value="[change]将role类更改为NPC类，为后续NPC开发铺垫，pet待想（交给策划）" />
+    <MESSAGE value="[change]重写index.html，并将login与register页面整合，将它两单独作为函数使用" />
+    <option name="LAST_COMMIT_MESSAGE" value="[change]重写index.html，并将login与register页面整合，将它两单独作为函数使用" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/EL_2$EL_2.coverage" NAME="EL_2 覆盖结果" MODIFIED="1745972020745" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="C:\Users\lcd\Desktop\python_work\EL_2" />
+    <SUITE FILE_PATH="coverage/EL_2$EL_2.coverage" NAME="EL_2 覆盖结果" MODIFIED="1745991591619" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="C:\Users\lcd\Desktop\python_work\EL_2" />
     <SUITE FILE_PATH="coverage/EL_2$config.coverage" NAME="config 覆盖结果" MODIFIED="1744871228334" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/EL_2$Flask__game___init___py_.coverage" NAME="Flask (game/__init__.py) 覆盖结果" MODIFIED="1744874640629" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/EL_2$Flask__run_py_.coverage" NAME="Flask (run.py) 覆盖结果" MODIFIED="1744878499370" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />

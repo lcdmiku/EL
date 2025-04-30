@@ -17,6 +17,23 @@ body {
 
 }
 
+.head-box{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position:absolute;
+}
+
+.head-box h1{
+    text-align: center;
+    color: white;
+    font-size: 87px;
+    font-weight: bold;
+    font-family: cursive;
+    text-shadow: 4px 4px 3px rgba(0, 0, 0, 0.2);
+    opacity: 0.7;
+}
+
 .box {
     width: 1050px;
     height: 600px;
@@ -132,8 +149,17 @@ form {
 
 }
 
-
-
+.message-box{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+ .message-box p{
+     color: #df1d1d;
+     text-align: center;
+     transition: opacity 0.5s;
+ }
 
 
 /* 按钮样式 */
