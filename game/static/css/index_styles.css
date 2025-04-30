@@ -118,6 +118,7 @@ input:focus {
 
 }
 
+
 input:focus::placeholder {
     opacity: 0;
 }

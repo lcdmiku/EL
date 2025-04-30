@@ -48,6 +48,7 @@ def login():
             return redirect(url_for('play.play'))
 
 
+
 @login_bp.route('/register', methods=['POST'])
 def register():
     register_form = RegisterForm()
