@@ -4,11 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="477d0c0d-de57-416e-9f58-e17eb7065fc7" name="更改" comment="[change]重写index.html，并将login与register页面整合，将它两单独作为函数使用">
+    <list default="true" id="477d0c0d-de57-416e-9f58-e17eb7065fc7" name="更改" comment="[change]再次完善index">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/game/routes/login.py" beforeDir="false" afterPath="$PROJECT_DIR$/game/routes/login.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/game/routes/play.py" beforeDir="false" afterPath="$PROJECT_DIR$/game/routes/play.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/game/static/css/index_styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/game/static/css/index_styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/game/static/css/play.css" beforeDir="false" afterPath="$PROJECT_DIR$/game/static/css/play.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/game/static/js/script.js" beforeDir="false" afterPath="$PROJECT_DIR$/game/static/js/script.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/game/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/game/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/game/templates/play.html" beforeDir="false" afterPath="$PROJECT_DIR$/game/templates/play.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/instance/test.db" beforeDir="false" afterPath="$PROJECT_DIR$/instance/test.db" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/run.py" beforeDir="false" afterPath="$PROJECT_DIR$/run.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -46,22 +50,22 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitLabMergeRequestFiltersHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPENED",
-    "assignee": {
-      "type": "org.jetbrains.plugins.gitlab.mergerequest.ui.filters.GitLabMergeRequestsFiltersValue.MergeRequestsMemberFilterValue.MergeRequestsAssigneeFilterValue",
-      "username": "LCDY",
-      "fullname": "林 楚登"
+  <component name="GitLabMergeRequestFiltersHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPENED&quot;,
+    &quot;assignee&quot;: {
+      &quot;type&quot;: &quot;org.jetbrains.plugins.gitlab.mergerequest.ui.filters.GitLabMergeRequestsFiltersValue.MergeRequestsMemberFilterValue.MergeRequestsAssigneeFilterValue&quot;,
+      &quot;username&quot;: &quot;LCDY&quot;,
+      &quot;fullname&quot;: &quot;林 楚登&quot;
     }
   }
-}]]></component>
-  <component name="GitLabMergeRequestsSettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "first": "https://git.nju.edu.cn/LCDY/el.git",
-    "second": "86b28cb5-da9a-4581-8fdf-499f701d777b"
+}</component>
+  <component name="GitLabMergeRequestsSettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;first&quot;: &quot;https://git.nju.edu.cn/LCDY/el.git&quot;,
+    &quot;second&quot;: &quot;86b28cb5-da9a-4581-8fdf-499f701d777b&quot;
   }
-}]]></component>
+}</component>
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="CurrentFile" />
   </component>
@@ -74,28 +78,29 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "DefaultHtmlFileTemplate": "HTML File",
-    "Flask 服务器.Flask (game/__init__.py).executor": "Run",
-    "Flask 服务器.Flask (run.py).executor": "Run",
-    "Python.EL_2.executor": "Run",
-    "Python.config.executor": "Run",
-    "Python.run.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "main",
-    "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "C:/Users/lcd/Desktop/python_work/EL_2",
-    "list.type.of.created.stylesheet": "CSS",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;Flask 服务器.Flask (game/__init__.py).executor&quot;: &quot;Run&quot;,
+    &quot;Flask 服务器.Flask (run.py).executor&quot;: &quot;Run&quot;,
+    &quot;Python.EL_2.executor&quot;: &quot;Run&quot;,
+    &quot;Python.config.executor&quot;: &quot;Run&quot;,
+    &quot;Python.run.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/lcd/Desktop/python_work/EL_2&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\lcd\Desktop\python_work\EL_2\game\static" />
@@ -149,7 +154,12 @@
       <workItem from="1744818984646" duration="51255000" />
       <workItem from="1745212450148" duration="25297000" />
       <workItem from="1745320971399" duration="4762000" />
-      <workItem from="1745404640863" duration="38413000" />
+      <workItem from="1745404640863" duration="40555000" />
+      <workItem from="1745996139654" duration="933000" />
+      <workItem from="1745997263649" duration="98000" />
+      <workItem from="1745997376037" duration="178000" />
+      <workItem from="1745997803096" duration="833000" />
+      <workItem from="1746010088880" duration="16390000" />
     </task>
     <task id="LOCAL-00001" summary="commit--init">
       <option name="closed" value="true" />
@@ -207,7 +217,15 @@
       <option name="project" value="LOCAL" />
       <updated>1745973823250</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="[change]再次完善index">
+      <option name="closed" value="true" />
+      <created>1745992175664</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1745992175664</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -245,10 +263,11 @@
     <MESSAGE value="Merge branch 'main' of https://git.nju.edu.cn/LCDY/el&#10;Merge remote-tracking branch 'origin/main'" />
     <MESSAGE value="[change]将role类更改为NPC类，为后续NPC开发铺垫，pet待想（交给策划）" />
     <MESSAGE value="[change]重写index.html，并将login与register页面整合，将它两单独作为函数使用" />
-    <option name="LAST_COMMIT_MESSAGE" value="[change]重写index.html，并将login与register页面整合，将它两单独作为函数使用" />
+    <MESSAGE value="[change]再次完善index" />
+    <option name="LAST_COMMIT_MESSAGE" value="[change]再次完善index" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/EL_2$EL_2.coverage" NAME="EL_2 覆盖结果" MODIFIED="1745991591619" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="C:\Users\lcd\Desktop\python_work\EL_2" />
+    <SUITE FILE_PATH="coverage/EL_2$EL_2.coverage" NAME="EL_2 覆盖结果" MODIFIED="1746068515507" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="C:\Users\lcd\Desktop\python_work\EL_2" />
     <SUITE FILE_PATH="coverage/EL_2$config.coverage" NAME="config 覆盖结果" MODIFIED="1744871228334" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/EL_2$Flask__game___init___py_.coverage" NAME="Flask (game/__init__.py) 覆盖结果" MODIFIED="1744874640629" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/EL_2$Flask__run_py_.coverage" NAME="Flask (run.py) 覆盖结果" MODIFIED="1744878499370" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />

@@ -14,7 +14,7 @@
             });
             document.getElementById('write-btn').addEventListener('click', () => showModal('write-modal'));
             document.getElementById('read-btn').addEventListener('click', () => showModal('read-modal'));
-
+            document.getElementById('map-selector-btn').addEventListener('click', () => showModal('map-selector-modal'));
             // 表单提交事件
             document.getElementById('write-form').addEventListener('submit', function (e) {
                 handleWriteSubmit(e, csrfToken);
@@ -69,6 +69,7 @@
                     }
                 });
                 const data = await response.json();
+                console.log(data+"fsdf");
                 if (data.message) {
                     const modalContent = document.getElementById('collected-letter-content');
                     if (data.letter) {
@@ -213,8 +214,16 @@
                 // 尝试重新播放音频
                 audioElement.load(); // 重新加载音频文件
                 audioElement.play().catch(e => console.log("Autoplay prevented:", e));
+                closeModal("map-selector-modal");
+
             } catch (error) {
                 console.error('Error:', error);
                 showNotification('Error changing location');
             }
+        }
+        function selectImageAndSubmit(box) {
+            const playSelect = document.getElementById('play');
+            const location_form = document.getElementById('location-form');
+            playSelect.value = box.dataset.value;
+            location_form.requestSubmit();
         }

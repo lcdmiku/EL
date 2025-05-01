@@ -161,7 +161,24 @@ form {
      transition: opacity 0.5s;
  }
 
+.welcome-image-box {
+            position: relative;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+}
 
+.welcome-image-box img {
+            margin: 0;
+            padding: 0;
+            position: absolute;
+            top: 100px;
+            right: 0;
+    width: auto;
+            height: 70%;
+            object-fit: cover;
+
+}
 /* 按钮样式 */
 .btn-box  {
     display: flex;

@@ -1,6 +1,6 @@
 from flask import render_template, Blueprint, request, redirect, url_for, session, jsonify
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField, SelectField
+from wtforms import StringField, PasswordField, BooleanField, SubmitField, SelectField,TextAreaField
 from wtforms.fields.simple import HiddenField
 from wtforms.validators import DataRequired
 #sql
@@ -41,14 +41,17 @@ def help_write(current_user, form,map_info=map_info):
     if current_user:
         if form.validate_on_submit():
             content = form.content.data
-            title = form.title.data
-            addressee = form.addressee.data
+            title = content[:5]+'...'#将title改为content的前五个字符
+            signature = form.signature.data
+            content = content + '\n' +f"Yours {signature}"
             address_id = map_info['id']
             show_writer = form.show_writer.data
 
             writer_id = current_user.id
-            letter = Letter(title=title, content=content, address_id=address_id, addressee_id=addressee,
-                            Is_show_writer=show_writer, writer_id=writer_id)
+            letter = Letter(title=title, content=content, address_id=address_id,
+                            Is_show_writer=show_writer, writer_id=writer_id)#去掉addressee
+
+
             letter.save()
             return 'Letter saved successfully'
         return 'Invalid form'
@@ -87,8 +90,8 @@ class Read(FlaskForm):
 
 
 class Write(FlaskForm):
-    content = StringField('Content', validators=[DataRequired()])
-    title = StringField('Title', validators=[DataRequired()])
+    content = TextAreaField('Content', validators=[DataRequired()])
+    signature = StringField('Signature', validators=[])#去除标题,改为写信者的署名
     addressee = StringField('Addressee')  # can be none
     # address needn't be provided by user
     # address = SelectField('Address', choices=[(0, 'Address 1'), (1, 'Address 2')], coerce=int, default=0)
@@ -158,7 +161,7 @@ def collect():
     address_id = map_info['id']
     print(address_id, map_info)
     letter = Letter.query.filter(and_(Letter.address_id == address_id, Letter.Is_viewed == False,
-                                      Letter.addressee_id=='')).first()
+                                      Letter.writer_id!=current_user.id)).first()#,(待加功能TODO
     # print(letter.addressee_id)竟然是空字符，fuck
     # if letter.addressee_id is None:
     #     print('tell me why')
