@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="477d0c0d-de57-416e-9f58-e17eb7065fc7" name="更改" comment="[change]再次完善play,放假，改了write表单">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="477d0c0d-de57-416e-9f58-e17eb7065fc7" name="更改" comment="[add]图片" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -152,7 +150,7 @@
       <workItem from="1745997376037" duration="178000" />
       <workItem from="1745997803096" duration="833000" />
       <workItem from="1746010088880" duration="17139000" />
-      <workItem from="1746597094576" duration="3582000" />
+      <workItem from="1746597094576" duration="3987000" />
     </task>
     <task id="LOCAL-00001" summary="commit--init">
       <option name="closed" value="true" />
@@ -226,7 +224,23 @@
       <option name="project" value="LOCAL" />
       <updated>1746087689394</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="[change]再次完善play,放假，改了write表单">
+      <option name="closed" value="true" />
+      <created>1746611555983</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1746611555983</updated>
+    </task>
+    <task id="LOCAL-00011" summary="[add]图片">
+      <option name="closed" value="true" />
+      <created>1746611584918</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1746611584918</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -266,7 +280,8 @@
     <MESSAGE value="[change]重写index.html，并将login与register页面整合，将它两单独作为函数使用" />
     <MESSAGE value="[change]再次完善index" />
     <MESSAGE value="[change]再次完善play,放假，改了write表单" />
-    <option name="LAST_COMMIT_MESSAGE" value="[change]再次完善play,放假，改了write表单" />
+    <MESSAGE value="[add]图片" />
+    <option name="LAST_COMMIT_MESSAGE" value="[add]图片" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/EL_2$EL_2.coverage" NAME="EL_2 覆盖结果" MODIFIED="1746074338095" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="C:\Users\lcd\Desktop\python_work\EL_2" />
