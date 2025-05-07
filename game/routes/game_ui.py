@@ -20,7 +20,7 @@ def game_ui():
     if current_user:
         form = UIForm()
         if request.method == 'GET':
-            return render_template('ui.html', current_user=current_user, form=form)
+            return render_template('index.html', current_user=current_user, form=form)
         elif request.method == 'POST':
             if form.validate_on_submit():
                 choice = form.choices.data

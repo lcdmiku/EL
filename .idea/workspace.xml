@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="477d0c0d-de57-416e-9f58-e17eb7065fc7" name="更改" comment="[add]commit init try" />
+    <list default="true" id="477d0c0d-de57-416e-9f58-e17eb7065fc7" name="更改" comment="[add]commit init try">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/game/static/css/index_styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/game/static/css/index_styles.css" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -150,7 +153,7 @@
       <workItem from="1745997376037" duration="178000" />
       <workItem from="1745997803096" duration="833000" />
       <workItem from="1746010088880" duration="17139000" />
-      <workItem from="1746597094576" duration="5002000" />
+      <workItem from="1746597094576" duration="6391000" />
     </task>
     <task id="LOCAL-00001" summary="commit--init">
       <option name="closed" value="true" />
