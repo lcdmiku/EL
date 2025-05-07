@@ -1,4 +1,4 @@
- // 初始化游戏
+ // 初始化游
         document.addEventListener('DOMContentLoaded', function () {
             const csrfToken = document.querySelector('input[name="csrf_token"]').value;
             // 自动播放背景音乐
