@@ -7,7 +7,7 @@ from game.models.user import User
 from .login import LoginForm
 
 ui_bp = Blueprint('ui', __name__)
-
+#登陆成功后进入的页面
 
 class UIForm(FlaskForm):
     choices = SelectField('Choices', choices=[('play', 'Play'), ('read', 'Read'), ('write', 'Write')])
@@ -20,7 +20,7 @@ def game_ui():
     if current_user:
         form = UIForm()
         if request.method == 'GET':
-            return render_template('ui.html', current_user=current_user, form=form)
+            return render_template('index.html', current_user=current_user, form=form)
         elif request.method == 'POST':
             if form.validate_on_submit():
                 choice = form.choices.data
@@ -29,6 +29,7 @@ def game_ui():
     else:
         return redirect(url_for('login.login'))
 
+#游戏场景信息，采用字典存储
 Map = [{'id':1,
     "address": "Address 1",
 

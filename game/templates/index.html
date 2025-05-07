@@ -3,63 +3,139 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>游戏登录前界面</title>
-    <style>
-        /* 整体页面样式 */
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-image: url('{{ url_for('static',filename='images/index_pic.png') }}'); /* 修正后的背景图片路径设置 */
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+    <title>登录界面</title>
 
-        /* 表单样式 */
-        form {
-            background-color: rgba(255, 255, 255, 0.8); /* 半透明白色背景 */
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-        }
-
-        /* 按钮样式 */
-        button {
-            padding: 10px 20px;
-            margin: 5px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-
-        button[name="choice"][value="login"] {
-            background-color: #007BFF;
-            color: white;
-        }
-
-        button[name="choice"][value="register"] {
-            background-color: #28A745;
-            color: white;
-        }
-
-        button:hover {
-            opacity: 0.9;
-        }
-    </style>
+    <link rel="stylesheet" href="../static/css/index_styles.css">
+    <!-- 引入 jQuery 库 -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
 <body>
-    <form action="" method="post">
-        <button type="submit" name="choice" value="login">登录</button>
-        <br>
-        <button type="submit" name="choice" value="register">注册</button>
-    </form>
+    <div class="head-box">
+        <h1>
+            温暖之境：心灵信件之旅
+        </h1>
+    </div>
+    <div class="box">
+        <div class="pre-box">
+            <h1>WELCOME</h1>
+            <p>JOIN US!</p>
+            <div class="image-box">
+                <img src="../static/images/login-welcome-2.png" alt="">
+
+            </div>
+        </div>
+        <div class="register-form">
+            <div class="title-box">
+                <h1>注册</h1>
+            </div>
+            <form id="register-form">
+                <div class="input-box">
+                    {{register_form.hidden_tag() }}
+                    {{register_form.username.label}}
+                    {{register_form.username(placeholder="username")}}
+                    {{register_form.password.label}}
+                    {{register_form.password(placeholder="password")}}
+                    {{register_form.password2.label}}
+                    {{register_form.password2(placeholder="confirm password")}}
+                </div>
+                <div class="btn-box">
+                    <button type="submit" onclick="myMessage(event, '/register', 'message-register')">{{ register_form.submit.label }}</button>
+                    <p onclick="mySwitch()">已有账号？去登录</p>
+                </div>
+                <div class="message-box">
+                    <p id="message-register">
+                        {{ message }}
+                    </p>
+                </div>
+            </form>
+
+        </div>
+
+
+        <div class="login-form">
+            <div class="title-box">
+                <h1>登录</h1>
+            </div>
+            <form id="login-form">
+                <div class="input-box">
+                    {{login_form.hidden_tag() }}
+                    {{login_form.username.label}}
+                    {{login_form.username(placeholder="username")}}
+                    {{login_form.password.label}}
+                    {{login_form.password(placeholder="password")}}
+                </div>
+                <div class="btn-box">
+                    <button type="submit" onclick="myMessage(event, '/login', 'message-login')">{{ login_form.submit.label }}</button>
+                    <p onclick="mySwitch()">没有账号？去注册</p>
+                </div>
+                <div class="message-box">
+                    <p id="message-login">
+                        {{ message }}
+                    </p>
+                </div>
+            </form>
+
+        </div>
+
+    </div>
+    <div class="welcome-image-box">
+        <img src="../static/images/welcome-right.png" alt="">
+    </div>
+
+    <script>
+            let flag = true;
+            const mySwitch = () => {
+                if (flag) {
+                    $(".pre-box").css("transform", "translateX(100%)");
+                    $(".pre-box").css("background-color", "#c9e0ed");
+                    $(".image-box img").attr("src", "../static/images/register-welcome.png");
+                } else {
+                    $(".pre-box").css("transform", "translateX(0%)");
+                    $(".pre-box").css("background-color", "#edd4dc");
+                    $(".image-box img").attr("src", "../static/images/login-welcome-2.png");
+                }
+                flag = !flag;
+            }
+
+            const myMessage = (e, url, id) => {
+                e.preventDefault();
+                const form = e.target.closest('form');
+                const formData = new FormData(form);
+                console.log(e.target);
+                console.log(formData);
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    dataType: 'json',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function (data) {
+                        if (data.redirect) {
+                            window.location.href = data.redirect;
+                        } else {
+                            console.log(data);
+                            console.log('fail');
+                            const messageContainer = document.getElementById(id);
+                            messageContainer.textContent = data.message;
+                            // 设置定时器，5 秒后消息自动消失
+                            setTimeout(() => {
+                                messageContainer.style.opacity = 0;
+                                setTimeout(() => {
+                                    messageContainer.textContent = '';
+                                    messageContainer.style.opacity = 1;
+                                }, 500); // 等待 0.5 秒的过渡效果
+                            }, 5000);
+                        }
+                    },
+                    error: function (error) {
+                        console.error('Error:', error);
+                    }
+                });
+            }
+
+        </script>
 </body>
 
 </html>
