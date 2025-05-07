@@ -4,13 +4,13 @@ from game import db
 #the class of user and text(letters and news)
 class User(db.Model):
     __tablename__ = 'user'
-    id = db.Column(db.Integer, primary_key=True,autoincrement=True)
+    id = db.Column(db.Integer, primary_key=True,autoincrement=True)#为每个用户分配id,类似qq账号
     username = db.Column(db.String(64), unique=True, index=True)
     password = db.Column(db.String(32))
     # role_id = db.Column(db.Integer, db.ForeignKey(Role.id))
     #user's letters
-    written_letters = db.relationship('Letter', backref='writer', lazy='dynamic', foreign_keys='Letter.writer_id')
-    received_letters = db.relationship('Letter', backref='receiver', lazy='dynamic', foreign_keys='Letter.addressee_id')
+    written_letters = db.relationship('Letter', backref='writer', lazy='dynamic', foreign_keys='Letter.writer_id')#user 写的信
+    received_letters = db.relationship('Letter', backref='receiver', lazy='dynamic', foreign_keys='Letter.addressee_id')#收的信
     viewed_letters = db.relationship('Letter', backref='viewer', lazy='dynamic', foreign_keys='Letter.viewer_id')
     #if the letter have addressee,viewer is addressee
     #by the way,one letter can be only read by only one person
