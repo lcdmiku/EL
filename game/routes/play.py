@@ -5,6 +5,8 @@ from wtforms.fields.simple import HiddenField
 from wtforms.validators import DataRequired
 #sql
 from sqlalchemy import and_
+
+from ..models.NPC import NPC
 from..models.user import *
 from.game_ui import Map
 
@@ -181,3 +183,37 @@ def myself_info():
     current_user, map_info = get_current_user_and_map_info()
     user_info = current_user.to_dict()
     return jsonify({"action": "myself_info", "user_info": user_info})
+
+
+#
+@play_bp.route('/move_npc', methods=['POST'])
+def move_npc():
+    current_user, map_info = get_current_user_and_map_info()
+    if not current_user:
+        return jsonify({"error": "Please log in to move NPC"}), 401
+    data = request.get_json()
+    direction = data.get('direction')  # 'left' 或 'right'
+    step = data.get('step', 20)# 默认步长 20#
+    if direction not in ['left', 'right']:
+        return jsonify({"error": "Invalid direction"}), 400
+    npc = NPC.query.filter_by(name=f"npc_{current_user.id}").first()
+    if not npc:
+        npc = NPC(name=f"npc_{current_user.id}", x_position=0)
+        db.session.add(npc)
+        db.session.commit()
+    if direction == 'right':
+        npc.x_position = min(npc.x_position + step, 800)
+    else:
+        npc.x_position = max(npc.x_position - step, 0)
+    db.session.commit()
+    return jsonify({
+        "status": "success",
+        "direction": direction,
+        "npc": {
+            "id": npc.id,
+            "name": npc.name,
+            "x_position": npc.x_position,
+            "image_url": url_for('static', filename='images/npc_image.png')
+        }
+    })
+#

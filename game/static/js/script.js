@@ -1,6 +1,11 @@
  // 初始化游
         document.addEventListener('DOMContentLoaded', function () {
             const csrfToken = document.querySelector('input[name="csrf_token"]').value;
+            #
+            const npc = document.getElementById('npc');
+            let npcPosition = 0; // 初始位置
+            #
+
             // 自动播放背景音乐
             const bgMusic = document.getElementById('bg-music');
             bgMusic.play().catch(e => console.log("Autoplay prevented:", e));
@@ -15,6 +20,20 @@
             document.getElementById('write-btn').addEventListener('click', () => showModal('write-modal'));
             document.getElementById('read-btn').addEventListener('click', () => showModal('read-modal'));
             document.getElementById('map-selector-btn').addEventListener('click', () => showModal('map-selector-modal'));
+            #
+            document.getElementById('forward-btn').addEventListener('click', function () {
+            npcPosition += 20; // 每次前进 20px
+            npc.style.left = npcPosition + 'px';
+            moveNPC('right', csrfToken); // 调用后端移动逻辑（可选）
+            });
+
+            document.getElementById('backward-btn').addEventListener('click', function () {
+            npcPosition -= 20; // 每次后退 20px
+            npc.style.left = npcPosition + 'px';
+            moveNPC('left', csrfToken); // 调用后端移动逻辑（可选）
+    });
+            #
+
             // 表单提交事件
             document.getElementById('write-form').addEventListener('submit', function (e) {
                 handleWriteSubmit(e, csrfToken);
@@ -227,3 +246,35 @@
             playSelect.value = box.dataset.value;
             location_form.requestSubmit();
         }
+
+        #
+        async function moveNPC(direction, csrfToken) {
+            try {
+                const response = await fetch("{{ url_for('play.move_npc') }}", {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': csrfToken
+                    },
+                    body: JSON.stringify({
+                        direction: direction,
+                        step: 20
+                    })
+                });
+                const data = await response.json();
+                if (data.status === "success") {
+                    const npc = document.getElementById('npc');
+                    npc.style.left = data.npc.x_position + 'px';
+
+                    // 根据方向翻转NPC图片（可选）
+                    if (direction === 'left') {
+                        npc.style.transform = 'translateY(-50%) scaleX(-1)';
+                    } else {
+                        npc.style.transform = 'translateY(-50%)';
+                    }
+                }
+            } catch (error) {
+                console.error("Error moving NPC:", error);
+            }
+        }
+        #

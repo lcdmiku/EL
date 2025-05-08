@@ -5,8 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="477d0c0d-de57-416e-9f58-e17eb7065fc7" name="更改" comment="[add]添加注释">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/game/routes/login.py" beforeDir="false" afterPath="$PROJECT_DIR$/game/routes/login.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/game/models/NPC.py" beforeDir="false" afterPath="$PROJECT_DIR$/game/models/NPC.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/game/routes/play.py" beforeDir="false" afterPath="$PROJECT_DIR$/game/routes/play.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/game/static/css/index_styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/game/static/css/index_styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/game/static/js/script.js" beforeDir="false" afterPath="$PROJECT_DIR$/game/static/js/script.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/game/templates/play.html" beforeDir="false" afterPath="$PROJECT_DIR$/game/templates/play.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/instance/test.db" beforeDir="false" afterPath="$PROJECT_DIR$/instance/test.db" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,16 +50,16 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitLabMergeRequestFiltersHistory"><![CDATA[{
-  "history": [
+  <component name="GitLabMergeRequestFiltersHistory">{
+  &quot;history&quot;: [
     {
-      "state": "OPENED"
+      &quot;state&quot;: &quot;OPENED&quot;
     }
   ],
-  "lastFilter": {
-    "state": "OPENED"
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPENED&quot;
   }
-}]]></component>
+}</component>
   <component name="GitLabMergeRequestsSettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;first&quot;: &quot;https://git.nju.edu.cn/LCDY/el.git&quot;,
@@ -66,7 +73,6 @@
   &quot;associatedIndex&quot;: 2
 }</component>
   <component name="ProjectId" id="2voknnIk142A0oU6qt2m0LYwIts" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -91,6 +97,7 @@
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.customizations&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
@@ -131,8 +138,7 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-d6986cc7102b-1632447f56bf-JavaScript-PY-243.26053.29" />
-        <option value="bundled-python-sdk-b1dbf8ef85a6-4df51de95216-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-243.26053.29" />
+        <option value="bundled-python-sdk-348a24fa61fa-5312c7369657-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-251.23774.444" />
       </set>
     </attachedChunks>
   </component>
@@ -154,6 +160,8 @@
       <workItem from="1745997803096" duration="833000" />
       <workItem from="1746010088880" duration="17139000" />
       <workItem from="1746597094576" duration="9074000" />
+      <workItem from="1746675995910" duration="93000" />
+      <workItem from="1746677110529" duration="41000" />
     </task>
     <task id="LOCAL-00001" summary="commit--init">
       <option name="closed" value="true" />

@@ -19,7 +19,7 @@
 <body>
     <div id="game-container">
         <!-- 地图显示 -->
-        <div id="map-display" style="background-image: url('{{ map_info.background_image | default('/static/images/default_bg.jpg') }}')"></div>
+        <div id="map-display" style="background-image: url('{{ map_info.background_image | default('/static/images/default_bg.jpg') }}'); z-index: 0;"></div>
 
         <!-- 位置信息 -->
         <div id="location-info">{{ map_info.address }}</div>
@@ -49,6 +49,11 @@
             <button id="write-btn" class="action-btn">Write</button>
             <button id="read-btn" class="action-btn">Read</button>
             <button id="map-selector-btn" class="action-btn">Address</button>
+            #
+            <!-- 新增 NPC 控制按钮 -->
+            <button id="backward-btn" class="action-btn">← Backward</button>
+            <button id="forward-btn" class="action-btn">Forward →</button>
+            #
         </div>
 
         <!-- 背景音乐 -->
@@ -125,6 +130,13 @@
         <!-- 通知消息 -->
         <div id="notification" class="notification"></div>
     </div>
+
+    #
+    <img id="npc"
+         src="../static/images/npc_image.png"
+         alt="NPC"
+         style="position: absolute; left: 0; top: 50%; transform: translateY(-50%); width: 100px; z-index: 1;">
+    #
 
     <script>
         // 初始化游戏
