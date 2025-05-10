@@ -134,7 +134,19 @@ def play():
                 if 0 <= map_choice < len(Map):
                     map_info = Map[int(map_choice)]
                 print(map_info,map_choice)
-            return jsonify({'action':'play',"map_info":map_info})
+            return jsonify({
+                'action': 'play',
+                'map_info': {
+                    'address': map_info['address'],
+                    'background_image': map_info['background_image'],
+                    'music_file': map_info['music_file'],
+                    'npc': {
+                        'name': map_info['npc']['name'],
+                        'image': map_info['npc']['image'],
+                        'dialog': map_info['npc']['dialog']
+                    }
+                }
+            })
         return render_template('play.html', form=form, message='Invalid form', map_info=map_info, read_form=read_form, write_form=write_form)
 
 
@@ -183,37 +195,3 @@ def myself_info():
     current_user, map_info = get_current_user_and_map_info()
     user_info = current_user.to_dict()
     return jsonify({"action": "myself_info", "user_info": user_info})
-
-
-#
-@play_bp.route('/move_npc', methods=['POST'])
-def move_npc():
-    current_user, map_info = get_current_user_and_map_info()
-    if not current_user:
-        return jsonify({"error": "Please log in to move NPC"}), 401
-    data = request.get_json()
-    direction = data.get('direction')  # 'left' 或 'right'
-    step = data.get('step', 20)# 默认步长 20#
-    if direction not in ['left', 'right']:
-        return jsonify({"error": "Invalid direction"}), 400
-    npc = NPC.query.filter_by(name=f"npc_{current_user.id}").first()
-    if not npc:
-        npc = NPC(name=f"npc_{current_user.id}", x_position=0)
-        db.session.add(npc)
-        db.session.commit()
-    if direction == 'right':
-        npc.x_position = min(npc.x_position + step, 800)
-    else:
-        npc.x_position = max(npc.x_position - step, 0)
-    db.session.commit()
-    return jsonify({
-        "status": "success",
-        "direction": direction,
-        "npc": {
-            "id": npc.id,
-            "name": npc.name,
-            "x_position": npc.x_position,
-            "image_url": url_for('static', filename='images/npc_image.png')
-        }
-    })
-#

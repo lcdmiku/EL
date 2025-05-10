@@ -16,13 +16,29 @@
     </script>
 </head>
 
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
 <body>
     <div id="game-container">
         <!-- 地图显示 -->
         <div id="map-display" style="background-image: url('{{ map_info.background_image | default('/static/images/default_bg.jpg') }}'); z-index: 0;"></div>
 
+        <!-- NPC元素 -->
+        <div id="npc" class="npc" onclick="showNpcDialog()">
+            <img src="{{ map_info.npc.image }}" alt="{{ map_info.npc.name }}">
+        </div>
+
         <!-- 位置信息 -->
         <div id="location-info">{{ map_info.address }}</div>
+
+        <!-- NPC对话框 -->
+        <div id="npc-dialog" class="modal">
+            <div class="modal-content">
+                <h3>{{ map_info.npc.name }}</h3>
+                <p id="npc-dialog-text">{{ map_info.npc.dialog }}</p>
+                <button onclick="closeNpcDialog()">关闭</button>
+            </div>
+        </div>
 
         <!-- 地图选择器模态框 -->
         <div id="map-selector-modal" class="modal">
@@ -49,11 +65,6 @@
             <button id="write-btn" class="action-btn">Write</button>
             <button id="read-btn" class="action-btn">Read</button>
             <button id="map-selector-btn" class="action-btn">Address</button>
-            #
-            <!-- 新增 NPC 控制按钮 -->
-            <button id="backward-btn" class="action-btn">← Backward</button>
-            <button id="forward-btn" class="action-btn">Forward →</button>
-            #
         </div>
 
         <!-- 背景音乐 -->
@@ -130,13 +141,6 @@
         <!-- 通知消息 -->
         <div id="notification" class="notification"></div>
     </div>
-
-    #
-    <img id="npc"
-         src="../static/images/npc_image.png"
-         alt="NPC"
-         style="position: absolute; left: 0; top: 50%; transform: translateY(-50%); width: 100px; z-index: 1;">
-    #
 
     <script>
         // 初始化游戏
@@ -358,10 +362,17 @@
                 audioElement.load(); // 重新加载音频文件
                 audioElement.play().catch(e => console.log("Autoplay prevented:", e));
                 closeModal("map-selector-modal");
+                updateNPC(newMapData.map_info.npc);
             } catch (error) {
                 console.error('Error:', error);
                 showNotification('Error changing location');
             }
+        }
+        function updateNPC(npc){
+            document.querySelector('#npc img').src = npc.image;
+            document.querySelector('#npc img').alt = npc.image;
+            document.querySelector('#npc-dialog h3').textContent = npc.name;
+            document.querySelector('#npc-dialog-text').textContent = npc.dialog;
         }
         function selectImageAndSubmit(box) {
             const playSelect = document.getElementById('play');

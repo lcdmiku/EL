@@ -5,12 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="477d0c0d-de57-416e-9f58-e17eb7065fc7" name="更改" comment="[add]添加注释">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/game/models/NPC.py" beforeDir="false" afterPath="$PROJECT_DIR$/game/models/NPC.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/game/routes/game_ui.py" beforeDir="false" afterPath="$PROJECT_DIR$/game/routes/game_ui.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/game/routes/play.py" beforeDir="false" afterPath="$PROJECT_DIR$/game/routes/play.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/game/static/css/index_styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/game/static/css/index_styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/game/static/css/play.css" beforeDir="false" afterPath="$PROJECT_DIR$/game/static/css/play.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/game/static/js/script.js" beforeDir="false" afterPath="$PROJECT_DIR$/game/static/js/script.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/game/templates/play.html" beforeDir="false" afterPath="$PROJECT_DIR$/game/templates/play.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/instance/test.db" beforeDir="false" afterPath="$PROJECT_DIR$/instance/test.db" afterDir="false" />
@@ -103,11 +102,11 @@
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\24188\Desktop\el\game\static\images" />
       <recent name="C:\Users\lcd\Desktop\python_work\EL_2\game\static" />
       <recent name="C:\Users\lcd\Desktop\python_work\EL_2\game" />
       <recent name="C:\Users\lcd\Desktop\python_work\EL_2" />
       <recent name="C:\Users\lcd\Desktop\python_work\EL_2\url_link" />
-      <recent name="C:\Users\lcd\Desktop\python_work\EL_2\static\images" />
     </key>
   </component>
   <component name="RunManager">

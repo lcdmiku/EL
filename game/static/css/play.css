@@ -107,10 +107,8 @@ body {
     max-height: 80vh;
     overflow-y: auto;
     position: relative;
-    transform: scale(0); /* 初始缩放为 0，即隐藏状态 */
-    animation-duration: 0.5s; /* 动画持续时间为 0.5 秒 */
-    animation-timing-function: ease-out; /* 动画缓动函数，结束时变慢 */
-    animation-fill-mode: forwards; /* 动画结束后保持最后一帧状态 */
+    background-color: white;
+    z-index: 101;
 }
 /*write modal*/
 #write-modal{
@@ -296,4 +294,48 @@ textarea.form-control {
     to {
         transform: scale(1); /* 动画结束状态，缩放为 1，即正常大小 */
     }
+}
+
+
+.npc {
+    position: absolute;
+    bottom: 150px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 150px;
+    cursor: pointer;
+    transition: transform 0.3s;
+    z-index: 1;
+}
+
+.npc:hover {
+    transform: translateX(-50%) scale(1.1);
+}
+
+.npc img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+#npc-dialog {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 100;
+    justify-content: center;
+    align-items: center;
+}
+
+#npc-dialog .modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 500px;
+    text-align: center;
 }

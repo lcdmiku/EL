@@ -1,10 +1,6 @@
  // 初始化游
         document.addEventListener('DOMContentLoaded', function () {
             const csrfToken = document.querySelector('input[name="csrf_token"]').value;
-            #
-            const npc = document.getElementById('npc');
-            let npcPosition = 0; // 初始位置
-            #
 
             // 自动播放背景音乐
             const bgMusic = document.getElementById('bg-music');
@@ -20,19 +16,6 @@
             document.getElementById('write-btn').addEventListener('click', () => showModal('write-modal'));
             document.getElementById('read-btn').addEventListener('click', () => showModal('read-modal'));
             document.getElementById('map-selector-btn').addEventListener('click', () => showModal('map-selector-modal'));
-            #
-            document.getElementById('forward-btn').addEventListener('click', function () {
-            npcPosition += 20; // 每次前进 20px
-            npc.style.left = npcPosition + 'px';
-            moveNPC('right', csrfToken); // 调用后端移动逻辑（可选）
-            });
-
-            document.getElementById('backward-btn').addEventListener('click', function () {
-            npcPosition -= 20; // 每次后退 20px
-            npc.style.left = npcPosition + 'px';
-            moveNPC('left', csrfToken); // 调用后端移动逻辑（可选）
-    });
-            #
 
             // 表单提交事件
             document.getElementById('write-form').addEventListener('submit', function (e) {
@@ -196,6 +179,16 @@
             }
         }
 
+// 显示NPC对话框
+function showNpcDialog() {
+    document.getElementById('npc-dialog').style.display = 'flex';
+}
+
+// 关闭NPC对话框
+function closeNpcDialog() {
+    document.getElementById('npc-dialog').style.display = 'none';
+}
+
         // 处理地图切换
         async function handleLocationChange(e, csrfToken) {
             e.preventDefault();
@@ -211,6 +204,17 @@
                 const newMapData = await response.json();
                 document.getElementById('map-display').style.backgroundImage = `url('${newMapData.map_info.background_image}')`;
                 document.getElementById('location-info').textContent = newMapData.map_info.address;
+
+        // 更新NPC信息
+        const npcElement = document.getElementById('npc');
+        const npcImage = npcElement.querySelector('img');
+        npcImage.src = newMapData.map_info.npc.image;
+        npcImage.alt = newMapData.map_info.npc.name;
+
+        // 更新对话框文本
+        document.getElementById('npc-dialog-text').textContent = newMapData.map_info.npc.dialog;
+
+
                 // 获取音频元素
                 const audioElement = document.getElementById('bg-music');
                 // 获取新的音频文件路径
@@ -246,35 +250,3 @@
             playSelect.value = box.dataset.value;
             location_form.requestSubmit();
         }
-
-        #
-        async function moveNPC(direction, csrfToken) {
-            try {
-                const response = await fetch("{{ url_for('play.move_npc') }}", {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRFToken': csrfToken
-                    },
-                    body: JSON.stringify({
-                        direction: direction,
-                        step: 20
-                    })
-                });
-                const data = await response.json();
-                if (data.status === "success") {
-                    const npc = document.getElementById('npc');
-                    npc.style.left = data.npc.x_position + 'px';
-
-                    // 根据方向翻转NPC图片（可选）
-                    if (direction === 'left') {
-                        npc.style.transform = 'translateY(-50%) scaleX(-1)';
-                    } else {
-                        npc.style.transform = 'translateY(-50%)';
-                    }
-                }
-            } catch (error) {
-                console.error("Error moving NPC:", error);
-            }
-        }
-        #
