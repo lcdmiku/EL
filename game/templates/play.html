@@ -28,10 +28,11 @@
 
         <!-- NPC对话框 -->
         <div id="npc-dialog" class="modal">
+            <img class="npc-portrait" src="{{ map_info.npc.image }}" alt="{{ map_info.npc.name }}">
             <div class="modal-content">
-                <h3>{{ map_info.npc.name }}</h3>
+                <h3 id="npc-name">{{ map_info.npc.name }}</h3>
                 <p id="npc-dialog-text">{{ map_info.npc.dialog }}</p>
-                <button onclick="closeModal('npc-dialog')">关闭</button>
+                <p class="chat" onclick="closeModal('npc-dialog')">是啊</p>
             </div>
         </div>
 
