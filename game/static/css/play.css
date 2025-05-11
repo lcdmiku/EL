@@ -336,6 +336,50 @@ textarea.form-control {
     transform: scale(1.2);
 }
 /* map style end*/
+/*npc */
+.npc {
+    position: absolute;
+    bottom: 150px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 150px;
+    cursor: pointer;
+    transition: transform 0.3s;
+    z-index: 1;
+}
+
+.npc:hover {
+    transform: translateX(-50%) scale(1.1);
+}
+
+.npc img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+#npc-dialog {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 100;
+    justify-content: center;
+    align-items: center;
+}
+
+#npc-dialog .modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 500px;
+    text-align: center;
+}
+/*npc end*/
 /*动画效果*/
 @keyframes openLetter {
     from {

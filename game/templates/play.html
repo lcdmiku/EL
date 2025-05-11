@@ -21,6 +21,20 @@
         <!-- 地图显示 -->
         <div id="map-display" style="background-image: url('{{ map_info.background_image | default('/static/images/default_bg.jpg') }}')"></div>
 
+        <!-- NPC元素 -->
+        <div id="npc" class="npc" onclick="showModal('npc-dialog')">
+            <img src="{{ map_info.npc.image }}" alt="{{ map_info.npc.name }}">
+        </div>
+
+        <!-- NPC对话框 -->
+        <div id="npc-dialog" class="modal">
+            <div class="modal-content">
+                <h3>{{ map_info.npc.name }}</h3>
+                <p id="npc-dialog-text">{{ map_info.npc.dialog }}</p>
+                <button onclick="closeModal('npc-dialog')">关闭</button>
+            </div>
+        </div>
+
         <!-- 位置信息 -->
         <div id="location-info">{{ map_info.address }}</div>
 
@@ -357,6 +371,8 @@
                 // 尝试重新播放音频
                 audioElement.load(); // 重新加载音频文件
                 audioElement.play().catch(e => console.log("Autoplay prevented:", e));
+                //NPC
+                updateNPC(newMapData.map_info.npc);
                 closeModal("map-selector-modal");
             }
         }
@@ -366,6 +382,13 @@
             const location_form = document.getElementById('location-form');
             playSelect.value = box.dataset.value;
             location_form.requestSubmit();
+        }
+        //NPC
+        function updateNPC(npc){
+            document.querySelector('#npc img').src = npc.image;
+            document.querySelector('#npc img').alt = npc.image;
+            document.querySelector('#npc-dialog h3').textContent = npc.name;
+            document.querySelector('#npc-dialog-text').textContent = npc.dialog;
         }
     </script>
 </body>

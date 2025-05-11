@@ -30,14 +30,27 @@ def game_ui():
         return redirect(url_for('login.login'))
 
 #游戏场景信息，采用字典存储
-Map = [{'id':1,
-    "address": "Address 1",
-
+Map = [
+    {
+        'id': 1,
+        "address": "Address 1",
         "background_image": "/static/images/address1_bg.jpg",
-        "music_file": "/static/music/address1_music.mp3"},
-       {   'id':2,
-           "address": "Address 2",
-
+        "music_file": "/static/music/address1_music.mp3",
+        "npc": {
+            "name": "NPC 1",
+            "image": "/static/images/npc1.png",
+            "dialog": "欢迎来到第一个场景！这里充满了神秘的气息..."
+        }
+    },
+    {
+        'id': 2,
+        "address": "Address 2",
         "background_image": "/static/images/address2_bg.png",
-        "music_file": "/static/music/address2_music.mp3", }
+        "music_file": "/static/music/address2_music.mp3",
+        "npc": {
+            "name": "NPC 2",
+            "image": "/static/images/npc2.png",
+            "dialog": "第二个场景更加美丽，不是吗？探索这里的每一个角落吧！"
+        }
+    }
 ]
