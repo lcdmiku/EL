@@ -8,6 +8,8 @@ from wtforms.validators import DataRequired
 #sql
 from sqlalchemy import and_
 from..models.user import *
+from ..models.NPC import NPC
+
 from.game_ui import Map
 
 

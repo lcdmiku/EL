@@ -340,10 +340,10 @@ textarea.form-control {
 .npc {
     position: absolute;
     bottom: 150px;
-    left: 50%;
+    left: 30%;
     transform: translateX(-50%);
-    width: 100px;
-    height: 150px;
+    width: 300px;
+    height: 450px;
     cursor: pointer;
     transition: transform 0.3s;
     z-index: 1;
@@ -360,24 +360,60 @@ textarea.form-control {
 }
 
 #npc-dialog {
-    display: none;
-    position: fixed;
-    top: 0;
+    top: auto;
+    bottom: 0;
     left: 0;
     width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 100;
-    justify-content: center;
+    height: 200px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-top: 2px solid #ccc;
+    padding: 10px;
+    font-family: "Microsoft YaHei", sans-serif;
     align-items: center;
 }
 
+.npc-portrait {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 350px;
+    height: 550px;
+    margin-right: 10px;
+}
+
+
 #npc-dialog .modal-content {
-    background-color: white;
     padding: 20px;
     border-radius: 10px;
-    max-width: 500px;
+    width: 100%;
+    height: 100%;
     text-align: center;
+}
+
+#npc-name{
+    position: absolute;
+    top: 10px;
+    left: 0;
+
+    font-size: 20px;
+}
+#npc-dialog .modal-content .chat{
+    position: absolute;
+    font-size: 14px;
+    font-family:'Times New Roman', Times, serif;
+    font-weight: bold;
+    display: inline-block;
+    width:40px;
+    height: 40px;
+    color: cornflowerblue;
+    cursor: pointer;
+    right: 10%;
+    bottom: 10%;
+}
+#npc-dialog .modal-content .chat:hover{
+    font-size: 18px;
+    line-height: 0;
+    border-bottom: 1px solid #2ca9f4;
 }
 /*npc end*/
 /*动画效果*/

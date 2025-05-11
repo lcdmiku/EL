@@ -2,8 +2,9 @@ from flask import render_template, Blueprint, session, redirect, url_for, reques
 from wtforms import StringField, PasswordField, SubmitField, SelectField
 from flask_wtf import FlaskForm
 from wtforms.validators import DataRequired, EqualTo
-from game import db
+
 from game.models.user import User
+from game.models.NPC import NPC,create_npc
 from .login import LoginForm
 
 ui_bp = Blueprint('ui', __name__)
@@ -29,6 +30,12 @@ def game_ui():
     else:
         return redirect(url_for('login.login'))
 
+#NPC
+
+NPC_1 = create_npc('Andy',"/static/images/npc1.png", ["欢迎来到第一个场景！这里充满了神秘的气息..."])
+NPC_2 = create_npc('Any',"/static/images/npc2.png",["第二个场景更加美丽，不是吗？探索这里的每一个角落吧！"])
+npc_data_1 = NPC_1.to_dict()
+npc_data_2 = NPC_2.to_dict()
 #游戏场景信息，采用字典存储
 Map = [
     {
@@ -36,21 +43,13 @@ Map = [
         "address": "Address 1",
         "background_image": "/static/images/address1_bg.jpg",
         "music_file": "/static/music/address1_music.mp3",
-        "npc": {
-            "name": "NPC 1",
-            "image": "/static/images/npc1.png",
-            "dialog": "欢迎来到第一个场景！这里充满了神秘的气息..."
-        }
+        "npc":npc_data_1,
     },
     {
         'id': 2,
         "address": "Address 2",
         "background_image": "/static/images/address2_bg.png",
         "music_file": "/static/music/address2_music.mp3",
-        "npc": {
-            "name": "NPC 2",
-            "image": "/static/images/npc2.png",
-            "dialog": "第二个场景更加美丽，不是吗？探索这里的每一个角落吧！"
-        }
+        "npc":npc_data_2
     }
 ]

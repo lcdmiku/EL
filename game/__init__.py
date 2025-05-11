@@ -1,6 +1,4 @@
 #game\__init__.py
-from ast import literal_eval
-
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
