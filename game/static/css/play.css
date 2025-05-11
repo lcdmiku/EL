@@ -2,7 +2,7 @@
 :root {
             --main-bg-color: rgba(0, 0, 0, 0.7);
             --border-radius: 5px;
-            --success-color: rgba(0, 200, 0, 0.9);
+            --success-color: rgb(44, 169, 244);
         }
 
 body {
@@ -114,7 +114,7 @@ body {
 }
 /*write modal*/
 #write-modal{
-    background-image: url("../images/letter-paper.png");
+    background-image: url("../images/letter-paper-1.jpg");
     background-size: 60% 90%;
 
     background-position: center;
@@ -129,11 +129,13 @@ body {
     background-repeat: no-repeat;
     padding: 20px;
     min-height: 400px;
-
     display: flex;
     flex-direction: column;
 }
-
+#write-modal.form-control{
+     font-size: 1.6em;
+     font-family: 'Times New Roman', Times, serif;
+}
 #close-w-modal{
     border: none;
     background-color: rgba(0, 0, 0, 0);
@@ -153,8 +155,7 @@ body {
     justify-content: center;
 }
 #close-w-modal:hover{
-    background-color: red;
-    font-size: 15px;
+    font-size: 30px;
 }
 #send-letter{
     position: absolute;
@@ -180,7 +181,10 @@ body {
 }
 
 /*TODO*/
-
+#read-modal>.form-control {
+     font-size: 1.6em;
+     font-family: 'Times New Roman', Times, serif;
+}
 
 /*read modal css end */
 /*read-detail modal css */
@@ -194,20 +198,22 @@ body {
     place-items: center;
 }
 #letter-modal-content{
+    font-size: 1.6em;
+    font-family: 'Times New Roman', Times, serif;
     white-space: pre-wrap;
+    width: 700px; /* 设置最小宽度 */
+    height: 600px;
+    word-wrap: break-word;
 }
 /*TODO*/
 /*read-detail modal css end*/
 /*text board*/
 textarea{
+    border-bottom: none;
+    resize: none; /* 允许用户在水平和垂直方向上调整大小 */
+    min-width: 700px; /* 设置最小宽度 */
+    min-height: 600px; /* 设置最小高度 */
 
-    resize: both; /* 允许用户在水平和垂直方向上调整大小 */
-            min-width: 700px; /* 设置最小宽度 */
-            min-height: 400px; /* 设置最小高度 */
-            max-width: 500px; /* 设置最大宽度 */
-            max-height: 1000px; /* 设置最大高度 */
-            width: 300px; /* 设置初始宽度 */
-            height: 200px; /* 设置初始高度 */
     font-size: 1.6em;
     font-family: 'Times New Roman', Times, serif;
 }
@@ -233,7 +239,7 @@ textarea{
 
 textarea.form-control {
             height: 100px;
-            resize: vertical;
+
         }
 
 .letter-item:hover {
@@ -256,15 +262,19 @@ textarea.form-control {
 
 .notification {
             position: fixed;
-            top: 50%;
-            left: 50%;
+            top: 45%;
+            left: 45%;
             transform: translate(-50%, -50%);
             background-color: var(--success-color);
             color: white;
+            font: bold 20px 'Great Vibes', cursive;
             padding: 15px 30px;
             border-radius: var(--border-radius);
             z-index: 200;
             display: none;
+            animation-duration: 0.5s; /* 动画持续时间为 0.5 秒 */
+            animation-timing-function: ease-out; /* 动画缓动函数，结束时变慢 */
+            animation-fill-mode: forwards; /* 动画结束后保持最后一帧状态 */
         }
 
 /*map-style*/

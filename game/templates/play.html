@@ -107,7 +107,7 @@
         <div id="letter-detail-modal" class="modal">
             <div class="modal-content">
                 <h2 id="letter-modal-title">Read</h2>
-                <p id="letter-modal-content"></p>
+                <div id="letter-modal-content"></div>
                 <button class="action-btn" id="reply-button" onclick="closeModal('read-modal');closeModal('letter-detail-modal')">Reply</button>
                 <button class="action-btn" onclick="closeModal('letter-detail-modal')">Close</button>
             </div>
@@ -173,6 +173,7 @@
         function showNotification(message, duration = 3000) {
             const notification = document.getElementById('notification');
             notification.textContent = message;
+            notification.style.animationName = 'openLetter';
             notification.style.display = 'block';
             setTimeout(() => {
                 notification.style.display = 'none';
