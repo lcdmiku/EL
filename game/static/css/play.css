@@ -2,7 +2,7 @@
 :root {
             --main-bg-color: rgba(0, 0, 0, 0.7);
             --border-radius: 5px;
-            --success-color: rgba(0, 200, 0, 0.9);
+            --success-color: rgb(44, 169, 244);
         }
 
 body {
@@ -103,17 +103,20 @@ body {
     padding: 20px;
     border-radius: 8px;
     width: 80%;
-    max-width: 500px;
-    max-height: 80vh;
+    max-width: 750px;
+    max-height: 90vh;
     overflow-y: auto;
     position: relative;
-    background-color: white;
-    z-index: 101;
+    transform: scale(0); /* 初始缩放为 0，即隐藏状态 */
+    animation-duration: 0.5s; /* 动画持续时间为 0.5 秒 */
+    animation-timing-function: ease-out; /* 动画缓动函数，结束时变慢 */
+    animation-fill-mode: forwards; /* 动画结束后保持最后一帧状态 */
 }
 /*write modal*/
 #write-modal{
-    background-image: url("../images/letter-paper.png");
+    background-image: url("../images/letter-paper-1.jpg");
     background-size: 60% 90%;
+
     background-position: center;
     background-repeat: no-repeat;
     flex: 1;
@@ -129,7 +132,10 @@ body {
     display: flex;
     flex-direction: column;
 }
-
+#write-modal.form-control{
+     font-size: 1.6em;
+     font-family: 'Times New Roman', Times, serif;
+}
 #close-w-modal{
     border: none;
     background-color: rgba(0, 0, 0, 0);
@@ -149,11 +155,11 @@ body {
     justify-content: center;
 }
 #close-w-modal:hover{
-    background-color: red;
-    font-size: 15px;
+    font-size: 30px;
 }
 #send-letter{
-
+    position: absolute;
+    bottom: 0px;
 }
 /* 设置表单输入框背景为透明 */
 #write-form .form-control {
@@ -162,19 +168,57 @@ body {
     border-bottom: 1px solid #ccc; /* 可根据需要调整底部边框样式 */
     outline: none;
 }
+/*write modal css end*/
+/*read modal css */
+#read-modal{
+    background-image: url("../images/letter-paper-parchment-paper.png");
+    background-size: 60% 90%;
 
-/*text board*/
-textarea{
-    resize: both; /* 允许用户在水平和垂直方向上调整大小 */
-            min-width: 200px; /* 设置最小宽度 */
-            min-height: 100px; /* 设置最小高度 */
-            max-width: 500px; /* 设置最大宽度 */
-            max-height: 300px; /* 设置最大高度 */
-            width: 300px; /* 设置初始宽度 */
-            height: 200px; /* 设置初始高度 */
+    background-position: center;
+    background-repeat: no-repeat;
+    flex: 1;
+    place-items: center;
 }
 
+/*TODO*/
+#read-modal>.form-control {
+     font-size: 1.6em;
+     font-family: 'Times New Roman', Times, serif;
+}
 
+/*read modal css end */
+/*read-detail modal css */
+#letter-detail-modal{
+    background-image: url("../images/letter-paper-parchment-paper.png");
+    background-size: 60% 90%;
+
+    background-position: center;
+    background-repeat: no-repeat;
+    flex: 1;
+    place-items: center;
+}
+#letter-modal-content{
+    font-size: 1.6em;
+    font-family: 'Times New Roman', Times, serif;
+    white-space: pre-wrap;
+    width: 700px; /* 设置最小宽度 */
+    height: 600px;
+    word-wrap: break-word;
+}
+/*TODO*/
+/*read-detail modal css end*/
+/*text board*/
+textarea{
+    border-bottom: none;
+    resize: none; /* 允许用户在水平和垂直方向上调整大小 */
+    min-width: 700px; /* 设置最小宽度 */
+    min-height: 600px; /* 设置最小高度 */
+
+    font-size: 1.6em;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+/*form-group start*/
 .form-group {
             margin-bottom: 15px;
 }
@@ -191,10 +235,11 @@ textarea{
             border: 1px solid #ddd;
             border-radius: 4px;
 }
+/*form-group end*/
 
 textarea.form-control {
             height: 100px;
-            resize: vertical;
+
         }
 
 .letter-item:hover {
@@ -217,18 +262,22 @@ textarea.form-control {
 
 .notification {
             position: fixed;
-            top: 50%;
-            left: 50%;
+            top: 45%;
+            left: 45%;
             transform: translate(-50%, -50%);
             background-color: var(--success-color);
             color: white;
+            font: bold 20px 'Great Vibes', cursive;
             padding: 15px 30px;
             border-radius: var(--border-radius);
             z-index: 200;
             display: none;
+            animation-duration: 0.5s; /* 动画持续时间为 0.5 秒 */
+            animation-timing-function: ease-out; /* 动画缓动函数，结束时变慢 */
+            animation-fill-mode: forwards; /* 动画结束后保持最后一帧状态 */
         }
 
-        /*map-style*/
+/*map-style*/
 .shell{
     width: 90%;
     height: 700px;
@@ -286,17 +335,8 @@ textarea.form-control {
     outline: none;
     transform: scale(1.2);
 }
-/*动画效果*/
-@keyframes openLetter {
-    from {
-        transform: scale(0); /* 动画起始状态，缩放为 0 */
-    }
-    to {
-        transform: scale(1); /* 动画结束状态，缩放为 1，即正常大小 */
-    }
-}
-
-
+/* map style end*/
+/*npc */
 .npc {
     position: absolute;
     bottom: 150px;
@@ -338,4 +378,14 @@ textarea.form-control {
     border-radius: 10px;
     max-width: 500px;
     text-align: center;
+}
+/*npc end*/
+/*动画效果*/
+@keyframes openLetter {
+    from {
+        transform: scale(0); /* 动画起始状态，缩放为 0 */
+    }
+    to {
+        transform: scale(1); /* 动画结束状态，缩放为 1，即正常大小 */
+    }
 }

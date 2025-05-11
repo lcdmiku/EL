@@ -30,8 +30,6 @@ def game_ui():
         return redirect(url_for('login.login'))
 
 #游戏场景信息，采用字典存储
-
-# 在Map字典中添加NPC信息
 Map = [
     {
         'id': 1,

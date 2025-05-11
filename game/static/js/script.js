@@ -1,7 +1,6 @@
  // 初始化游
         document.addEventListener('DOMContentLoaded', function () {
             const csrfToken = document.querySelector('input[name="csrf_token"]').value;
-
             // 自动播放背景音乐
             const bgMusic = document.getElementById('bg-music');
             bgMusic.play().catch(e => console.log("Autoplay prevented:", e));
@@ -16,7 +15,6 @@
             document.getElementById('write-btn').addEventListener('click', () => showModal('write-modal'));
             document.getElementById('read-btn').addEventListener('click', () => showModal('read-modal'));
             document.getElementById('map-selector-btn').addEventListener('click', () => showModal('map-selector-modal'));
-
             // 表单提交事件
             document.getElementById('write-form').addEventListener('submit', function (e) {
                 handleWriteSubmit(e, csrfToken);
@@ -179,16 +177,6 @@
             }
         }
 
-// 显示NPC对话框
-function showNpcDialog() {
-    document.getElementById('npc-dialog').style.display = 'flex';
-}
-
-// 关闭NPC对话框
-function closeNpcDialog() {
-    document.getElementById('npc-dialog').style.display = 'none';
-}
-
         // 处理地图切换
         async function handleLocationChange(e, csrfToken) {
             e.preventDefault();
@@ -204,17 +192,6 @@ function closeNpcDialog() {
                 const newMapData = await response.json();
                 document.getElementById('map-display').style.backgroundImage = `url('${newMapData.map_info.background_image}')`;
                 document.getElementById('location-info').textContent = newMapData.map_info.address;
-
-        // 更新NPC信息
-        const npcElement = document.getElementById('npc');
-        const npcImage = npcElement.querySelector('img');
-        npcImage.src = newMapData.map_info.npc.image;
-        npcImage.alt = newMapData.map_info.npc.name;
-
-        // 更新对话框文本
-        document.getElementById('npc-dialog-text').textContent = newMapData.map_info.npc.dialog;
-
-
                 // 获取音频元素
                 const audioElement = document.getElementById('bg-music');
                 // 获取新的音频文件路径

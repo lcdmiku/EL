@@ -1,4 +1,6 @@
-from sqlalchemy.orm import backref
+from email.policy import default
+
+from sqlalchemy.orm import backref, relationship
 
 from game import db
 #the class of user and text(letters and news)
@@ -85,6 +87,9 @@ class Letter(Text):
     viewer_id = db.Column(db.Integer,db.ForeignKey('user.id'),nullable=True)
     #确定是否已阅
     Is_viewed = db.Column(db.Boolean,default=False)
+    #reply letter
+    # reply_id = db.Column(db.Integer,db.ForeignKey('letter.id'),nullable=True)
+    # replied_letter=db.relationship('Letter', backref='reply', lazy='dynamic', foreign_keys='Letter.reply_id')
 
     def to_dict(self):
         """将letter对象可json化的数据保存到字典中以便前端使用"""
