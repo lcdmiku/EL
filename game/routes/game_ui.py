@@ -31,14 +31,18 @@ def game_ui():
         return redirect(url_for('login.login'))
 
 #NPC
+#在dialog中，每一回合是列表内的dict,不清楚可运行一下，
+#添加会话回合，可复制粘贴一个dict，再修改内容
+#本人能力有限，对话数据就这样了吧
 dialogs_1 = [
     {
-        "player_dialog":"是的",
-        "npc_dialog": "你还喜欢这里吗",
+        "player_dialog":"是的",#指玩家的话语
+        "npc_dialog": "你还喜欢这里吗",#
         "npc_name": "Andy",
         "npc_portrait": "/static/images/npc1.png",
     },
-{
+
+    {
         "player_dialog":"是",
         "npc_dialog": "你hen喜欢这里吗",
         "npc_name": "Andy",
