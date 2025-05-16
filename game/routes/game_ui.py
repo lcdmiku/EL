@@ -31,11 +31,45 @@ def game_ui():
         return redirect(url_for('login.login'))
 
 #NPC
+dialogs_1 = [
+    {
+        "player_dialog":"是的",
+        "npc_dialog": "你还喜欢这里吗",
+        "npc_name": "Andy",
+        "npc_portrait": "/static/images/npc1.png",
+    },
+{
+        "player_dialog":"是",
+        "npc_dialog": "你hen喜欢这里吗",
+        "npc_name": "Andy",
+        "npc_portrait": "/static/images/npc1.png",
+    }
 
-NPC_1 = create_npc('Andy',"/static/images/npc1.png", ["欢迎来到第一个场景！这里充满了神秘的气息..."])
-NPC_2 = create_npc('Any',"/static/images/npc2.png",["第二个场景更加美丽，不是吗？探索这里的每一个角落吧！"])
+]
+
+dialogs_2 = [
+    {
+        "player_dialog": "thank",
+        "npc_dialog": "welcome!",
+        "npc_name": "Any",
+        "npc_portrait": "/static/images/npc2.png",
+     },
+{
+        "player_dialog": "thank",
+        "npc_dialog": "we come!",
+        "npc_name": "Any",
+        "npc_portrait": "/static/images/npc2.png",
+     }
+
+]
+
+NPC_1 = create_npc('Andy',"/static/images/npc1.png", dialogs_1)
+NPC_2 = create_npc('Any',"/static/images/npc2.png",dialogs_2)
 npc_data_1 = NPC_1.to_dict()
 npc_data_2 = NPC_2.to_dict()
+
+
+
 #游戏场景信息，采用字典存储
 Map = [
     {
@@ -50,6 +84,6 @@ Map = [
         "address": "Address 2",
         "background_image": "/static/images/address2_bg.png",
         "music_file": "/static/music/address2_music.mp3",
-        "npc":npc_data_2
+        "npc":npc_data_2,
     }
 ]

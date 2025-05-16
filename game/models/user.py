@@ -19,6 +19,11 @@ class User(db.Model):
     #news's about
     written_news = db.relationship('News', backref='writer', lazy='dynamic', foreign_keys='News.writer_id')
 
+    # # 新增：故事进度字段
+    # story_progress = db.Column(db.Integer, default=0)  # 0=未开始, 1=进行中, 2=已完成
+    #
+    # # 新增：故事成就字段
+    # story_achievements = db.Column(db.String(256), default='')  # 存储成就ID，逗号分隔
 
     def __init__(self, username, password):
         self.username = username

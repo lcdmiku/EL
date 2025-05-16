@@ -191,8 +191,26 @@ def collect():
     return jsonify({"action": "collect", "error": "No letter to collect"})
 
 
-@play_bp.route('/myself_info', methods=['POST'])
-def myself_info():
+@play_bp.route('/npc', methods=['POST','GET'])
+def npc_inter():
     current_user, map_info = get_current_user_and_map_info()
-    user_info = current_user.to_dict()
-    return jsonify({"action": "myself_info", "user_info": user_info})
+
+    npc_dialogs = map_info['npc']['dialogs']
+
+    # 从会话中获取对话轮次，默认0
+    dialog_index = session.get('dialog_index', 0)
+    if dialog_index >= len(npc_dialogs):
+        session['dialog_index'] = 0
+        return jsonify(None)  # 对话结束
+
+    # 获取当前对话
+    game_state = npc_dialogs[dialog_index]
+    dialog_index += 1  # 轮次递增
+    session['dialog_index'] = dialog_index  # 保存回会话
+
+    return jsonify({
+        "npc_name": game_state['npc_name'],
+        "npc_portrait": game_state['npc_portrait'],
+        "npc_dialog": game_state['npc_dialog'],
+        "player_dialog": game_state['player_dialog']
+    })
