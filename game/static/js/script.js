@@ -9,6 +9,7 @@
             showLocationInfo();
 
             // 绑定按钮事件
+            document.getElementById('next-dialog-btn').addEventListener('click', nextDialog);
             document.getElementById('collect-btn').addEventListener('click', function (e) {
                 handleCollect(e, csrfToken);
             });
@@ -34,11 +35,6 @@
             setTimeout(() => {
                 locationInfo.style.opacity = '0';
             }, 3000);
-        }
-
-        // 显示模态框
-        function showModal(modalId) {
-            document.getElementById(modalId).style.display = 'flex';
         }
 
         // 关闭模态框
@@ -214,6 +210,7 @@
                 // 尝试重新播放音频
                 audioElement.load(); // 重新加载音频文件
                 audioElement.play().catch(e => console.log("Autoplay prevented:", e));
+                updateNPC(newMapData.map_info.npc);
                 closeModal("map-selector-modal");
 
             } catch (error) {
@@ -227,3 +224,82 @@
             playSelect.value = box.dataset.value;
             location_form.requestSubmit();
         }
+
+// 全局变量存储当前对话状态
+let currentDialogIndex = 0;
+let currentNPC = null;
+
+// 更新NPC对话框
+function updateNPCScript(npc) {
+    currentNPC = npc;
+    currentDialogIndex = 0;
+    if (npc.dialog && npc.dialog.length > 0) {
+        const firstDialog = npc.dialog[0];
+        const portraitA = document.getElementById('npc-portrait-A');
+        portraitA.src = firstDialog.image_A || '/static/images/default_npc.png';
+    }
+    showCurrentDialog();
+}
+
+// 显示当前对话
+function showCurrentDialog() {
+    if (!currentNPC || !currentNPC.dialog || currentDialogIndex >= currentNPC.dialog.length) {
+        closeModal('npc-dialog');
+        return;
+    }
+
+    const dialog = currentNPC.dialog[currentDialogIndex];
+    console.log('Current dialog:',dialog);
+    document.getElementById('npc-dialog-text').textContent = dialog.dialog;
+
+    // 显示A图片，隐藏B图片
+    const portraitA = document.getElementById('npc-portrait-A');
+    const portraitB = document.getElementById('npc-portrait-B');
+    console.log('Setting image A:',dialog.image_A);
+    portraitA.src = dialog.image_A;
+    portraitA.style.display = 'block';
+    portraitB.style.display = 'none';
+}
+
+// 下一段对话
+function nextDialog() {
+    if (!currentNPC || !currentNPC.dialog) return;
+
+    currentDialogIndex++;
+    if (currentDialogIndex >= currentNPC.dialog.length) {
+        closeModal('npc-dialog');
+        return;
+    }
+
+    const dialog = currentNPC.dialog[currentDialogIndex];
+    document.getElementById('npc-dialog-text').textContent = dialog.dialog;
+
+    // 切换图片
+    const portraitA = document.getElementById('npc-portrait-A');
+    const portraitB = document.getElementById('npc-portrait-B');
+
+    if (currentDialogIndex % 2 === 0) {
+        // 偶数索引显示A图片
+        portraitA.src = dialog.image_A;
+        portraitA.style.display = 'block';
+        portraitB.style.display = 'none';
+    } else {
+        // 奇数索引显示B图片
+        portraitB.src = dialog.image_B;
+        portraitB.style.display = 'block';
+        portraitA.style.display = 'none';
+    }
+}
+
+// 修改showModal函数，初始化对话
+function showModal(modalId) {
+    const modal = document.getElementById(modalId);
+    modal.style.display = 'flex';
+    const modalContent = modal.querySelector('.modal-content');
+    modalContent.style.animationName = 'openLetter';
+
+    if (modalId === 'npc-dialog') {
+        currentDialogIndex = 0;
+        showCurrentDialog();
+    }
+}

@@ -11,10 +11,10 @@
             collect: "{{ url_for('play.collect') }}",
             write: "{{ url_for('play.write') }}",
             read: "{{ url_for('play.read') }}",
-            play: "{{ url_for('play.play') }}",
-            npc:"{{ url_for('play.npc_inter') }}"
+            play: "{{ url_for('play.play') }}"
         };
     </script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </head>
 
 <body>
@@ -23,20 +23,22 @@
         <div id="map-display" style="background-image: url('{{ map_info.background_image | default('/static/images/default_bg.jpg') }}')"></div>
 
         <!-- NPC元素 -->
-        <div id="npc" class="npc" >
+        <div id="npc" class="npc" onclick="showModal('npc-dialog')">
             <img src="{{ map_info.npc.image }}" alt="{{ map_info.npc.name }}">
         </div>
 
-        <!-- NPC对话框 -->
-        <div id="npc-dialog" class="modal">
-            <img class="npc-portrait" id="npc-portrait" src="" alt="">
-            <div class="modal-content">
-                <h3 id="npc-name"></h3>
-                <p id="npc-dialog-text"></p>
-                <button type="submit" id="player-dialog"></button>
-                <p id="close-d-modal" onclick="closeModal('npc-dialog')">离开</p>
-            </div>
-        </div>
+<!-- NPC对话框 -->
+<div id="npc-dialog" class="modal">
+    <div class="npc-portrait-container">
+        <img id="npc-portrait-A" class="npc-portrait-A" src="" alt="">
+        <img id="npc-portrait-B" class="npc-portrait-B" src="" alt="" style="display: none;">
+    </div>
+    <div class="modal-content">
+        <h3 id="npc-name">{{ map_info.npc.name }}</h3>
+        <p id="npc-dialog-text"></p>
+        <p class="chat" id="next-dialog-btn">继续</p>
+    </div>
+</div>
 
         <!-- 位置信息 -->
         <div id="location-info">{{ map_info.address }}</div>
@@ -56,6 +58,10 @@
                 <div class="map-image-box" data-value="1" onclick="selectImageAndSubmit(this)">
                     <img src="../static/images/address2_bg.png" alt="">
                     <span>Image 2</span>
+                </div>
+                <div class="map-image-box" data-value="2" onclick="selectImageAndSubmit(this)">
+                    <img src="../static/images/address3_bg.jpg" alt="">
+                    <span>Image 3</span>
                 </div>
             </div>
         </div>
@@ -136,6 +142,9 @@
         <div id="notification" class="notification"></div>
     </div>
 
+    <script id = "npc-data" type="application/json">
+        {{ map_info.npc | tojson}}
+    </script>
     <script>
         // 初始化游戏
         document.addEventListener('DOMContentLoaded', function () {
@@ -164,12 +173,8 @@
             document.getElementById('location-form').addEventListener('submit', function (e) {
                 handleLocationChange(e, csrfToken);
             });
-            document.getElementById('player-dialog').addEventListener('click', function (e) {
-                handleStoryChange(e, csrfToken);
-            });
-            document.getElementById('npc').addEventListener('click', function (e) {
-                handleStoryChange(e, csrfToken);
-            });
+            const npcData = JSON.parse(document.getElementById('npc-data').textContent);
+            updateNPC(npcData);
         });
 
         // 显示位置信息3秒
@@ -188,6 +193,7 @@
             const modalContent = modal.querySelector('.modal-content');
             modalContent.style.animationName = 'openLetter';
         }
+
 
         // 关闭模态框
         function closeModal(modalId) {
@@ -382,48 +388,11 @@
                 audioElement.play().catch(e => console.log("Autoplay prevented:", e));
                 //NPC
                 updateNPC(newMapData.map_info.npc);
-                updateNPCDialogs(newMapData.map_info.npc);
                 closeModal("map-selector-modal");
             }
         }
-
-        // 处理情节(对话)推动
-        async function handleStoryChange(e, csrfToken) {
-            e.preventDefault();
-            {#const formData = new FormData(e.target);#}
-            const newStoryData = await handleFetch(window.urlConfig.npc, {
-                method: 'POST',
-                headers: {
-                    'X-CSRFToken': csrfToken
-                },
-                {#body: formData#}
-                body: JSON.stringify({})
-            });
-            if (newStoryData) {
-                const portrait = document.getElementById('npc-portrait');
-                const npc_name = document.getElementById('npc-name');
-                const npc_dialog = document.getElementById('npc-dialog-text');
-                const player_dialog = document.getElementById('player-dialog');
-
-                portrait.src = newStoryData.npc_portrait;
-                npc_name.textContent = newStoryData.npc_name;
-                npc_dialog.textContent = newStoryData.npc_dialog;
-                player_dialog.textContent = newStoryData.player_dialog;
-                showModal('npc-dialog')
-            }
-            else {
-                closeModal("npc-dialog");
-            }
-        }
-//切换地图by点击场景图
+        //切换地图by点击场景图
         function selectImageAndSubmit(box) {
-            const playSelect = document.getElementById('play');
-            const location_form = document.getElementById('location-form');
-            playSelect.value = box.dataset.value;
-            location_form.requestSubmit();
-        }
-//切换地图by 玩家选择剧情互动
-        function PushStoryMap(button){
             const playSelect = document.getElementById('play');
             const location_form = document.getElementById('location-form');
             playSelect.value = box.dataset.value;
@@ -433,11 +402,13 @@
         function updateNPC(npc){
             document.querySelector('#npc img').src = npc.image;
             document.querySelector('#npc img').alt = npc.image;
-        }
-        function updateNPCDialogs(npc){
-            document.querySelector('#npc-dialog .npc-portrait').src = npc.image;
             document.querySelector('#npc-dialog h3').textContent = npc.name;
             document.querySelector('#npc-dialog-text').textContent = npc.dialog;
+            document.querySelector('.npc-portrait-A').src = npc.image;
+            document.querySelector('.npc-portrait-B').src = npc.image;
+            document.querySelector('.npc-portrait-A').alt = npc.name;
+            document.querySelector('.npc-portrait-B').alt = npc.name;
+            updateNPCScript(npc);
         }
     </script>
 </body>
