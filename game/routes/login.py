@@ -59,7 +59,7 @@ def register():
         if register_form.validate_on_submit():
             username = register_form.username.data
             if User.query.filter_by(username=username).first():#if username have existed,it is incorrect
-                return render_template('index.html',register_form=register_form,message='username have been registered')
+                return jsonify({"action":"register","message" : 'username have been registered'})#message='username have been registered'
             password = register_form.password.data
             user = User(username=username,password=password)
             user.save()
