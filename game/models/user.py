@@ -17,7 +17,7 @@ class User(db.Model):
     #if the letter have addressee,viewer is addressee
     #by the way,one letter can be only read by only one person
     #news's about
-    written_news = db.relationship('News', backref='writer', lazy='dynamic', foreign_keys='News.writer_id')
+    # written_news = db.relationship('News', backref='writer', lazy='dynamic', foreign_keys='News.writer_id')
 
     # # 新增：故事进度字段
     # story_progress = db.Column(db.Integer, default=0)  # 0=未开始, 1=进行中, 2=已完成
@@ -46,7 +46,7 @@ class User(db.Model):
                        如果为 None，则返回默认的属性集合（不包含密码）。
         :return: 包含用户信息的字典。
         """
-        default_fields = ['id', 'username', 'written_letters', 'received_letters', 'viewed_letters', 'written_news']
+        default_fields = ['id', 'username', 'written_letters', 'received_letters', 'viewed_letters']
         if fields:
             data = {field: getattr(self, field) for field in fields if hasattr(self, field)}
         else:
@@ -56,7 +56,7 @@ class User(db.Model):
                 'written_letters': [letter.title for letter in self.written_letters],
                 'received_letters': [letter.title for letter in self.received_letters],
                 'viewed_letters': [letter.title for letter in self.viewed_letters],
-                'written_news': [news.title for news in self.written_news]
+                # 'written_news': [news.title for news in self.written_news]
             }
         return data
 
@@ -112,21 +112,21 @@ class Letter(Text):
 
 
 
-news_reader = db.Table('news_reader',
-                       db.Column('id', db.Integer, primary_key=True, autoincrement=True),
-                       db.Column('user_id',db.Integer,db.ForeignKey('user.id')),
-                       db.Column('news_id',db.Integer,db.ForeignKey('news.id')),
-                       )
-
-class News(Text):
-    __tablename__='news'
-    views_count = db.Column(db.Integer,default=0)
-    writer_id = db.Column(db.Integer,db.ForeignKey('user.id'),nullable=False)
-    #build to viewer
-    to_viewer = db.relationship('User',
-                                secondary= news_reader ,
-                                backref = db.backref('viewed_news',lazy='dynamic'),
-                                lazy='dynamic',
-                                )
-    #the id of the news board
-    board_id = db.Column(db.Integer,nullable=False)
+# news_reader = db.Table('news_reader',
+#                        db.Column('id', db.Integer, primary_key=True, autoincrement=True),
+#                        db.Column('user_id',db.Integer,db.ForeignKey('user.id')),
+#                        db.Column('news_id',db.Integer,db.ForeignKey('news.id')),
+#                        )
+#
+# class News(Text):
+#     __tablename__='news'
+#     views_count = db.Column(db.Integer,default=0)
+#     writer_id = db.Column(db.Integer,db.ForeignKey('user.id'),nullable=False)
+#     #build to viewer
+#     to_viewer = db.relationship('User',
+#                                 secondary= news_reader ,
+#                                 backref = db.backref('viewed_news',lazy='dynamic'),
+#                                 lazy='dynamic',
+#                                 )
+#     #the id of the news board
+#     board_id = db.Column(db.Integer,nullable=False)

@@ -35,8 +35,6 @@ def get_letters(current_user, letter_type):
         return current_user.received_letters.all()
     elif letter_type == 'viewed_letters':
         return current_user.viewed_letters.all()
-    elif letter_type == 'written_news':
-        return current_user.written_news.all()
     else:
         return None
 
@@ -88,7 +86,7 @@ class PlayChoice(FlaskForm):
 
 
 class Read(FlaskForm):
-    letter_type = SelectField('Type', choices=[('written_letters', 'Written Letter'), ('received_letters', 'Received Letter'), ('viewed_letters', 'Viewed Letter'), ('written_news', 'Written News')])
+    letter_type = SelectField('Type', choices=[('written_letters', 'Written Letter'), ('received_letters', 'Received Letter'), ('viewed_letters', 'Viewed Letter')])
     submit = SubmitField('Submit')
 
 

@@ -2,7 +2,7 @@
 :root {
             --main-bg-color: rgba(0, 0, 0, 0.7);
             --border-radius: 5px;
-            --success-color: rgb(44, 169, 244);
+            --success-color: rgb(255, 255, 255);
         }
 
 body {
@@ -171,7 +171,7 @@ body {
 /*write modal css end*/
 /*read modal css */
 #read-modal{
-    background-image: url("../images/letter-paper-parchment-paper.png");
+    background-image: url("../images/letter-paper-1.jpg");
     background-size: 60% 90%;
 
     background-position: center;
@@ -185,11 +185,14 @@ body {
      font-size: 1.6em;
      font-family: 'Times New Roman', Times, serif;
 }
-
+#read-form{
+    position: sticky;
+    top: 20px; /* 距离视口顶部20px时固定 */
+}
 /*read modal css end */
 /*read-detail modal css */
 #letter-detail-modal{
-    background-image: url("../images/letter-paper-parchment-paper.png");
+    background-image: url("../images/letter-paper-1.jpg");
     background-size: 60% 90%;
 
     background-position: center;
@@ -265,9 +268,9 @@ textarea.form-control {
             top: 45%;
             left: 45%;
             transform: translate(-50%, -50%);
-            background-color: var(--success-color);
-            color: white;
-            font: bold 20px 'Great Vibes', cursive;
+            background-color: rgb(255, 255, 255, 0.8);
+            color: #373333;
+            font: bold 20px "Segoe UI", sans-serif;
             padding: 15px 30px;
             border-radius: var(--border-radius);
             z-index: 200;
@@ -347,6 +350,8 @@ textarea.form-control {
     cursor: pointer;
     transition: transform 0.3s;
     z-index: 1;
+    background-color: rgb(255, 255, 255, 0.6);
+    border-radius: 15px;
 }
 
 .npc:hover {
@@ -417,7 +422,7 @@ textarea.form-control {
     bottom: 20px;
     font-size: 14px;
     cursor: pointer;
-    color: cornflower blue;
+    color:  blue;
 }
 
 #npc-dialog .chat:hover {

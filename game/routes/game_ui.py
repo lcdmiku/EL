@@ -5,7 +5,7 @@ from wtforms.validators import DataRequired, EqualTo
 
 from game.models.user import User
 from game.models.NPC import NPC,create_npc
-from .login import LoginForm
+
 
 ui_bp = Blueprint('ui', __name__)
 #登陆成功后进入的页面
