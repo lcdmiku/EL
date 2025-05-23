@@ -4,17 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="477d0c0d-de57-416e-9f58-e17eb7065fc7" name="更改" comment="[change]改善npc实现">
+    <list default="true" id="477d0c0d-de57-416e-9f58-e17eb7065fc7" name="更改" comment="[add]添加注释">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/game/models/NPC.py" beforeDir="false" afterPath="$PROJECT_DIR$/game/models/NPC.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/game/models/user.py" beforeDir="false" afterPath="$PROJECT_DIR$/game/models/user.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/game/routes/game_ui.py" beforeDir="false" afterPath="$PROJECT_DIR$/game/routes/game_ui.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/game/routes/play.py" beforeDir="false" afterPath="$PROJECT_DIR$/game/routes/play.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/game/static/css/index_styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/game/static/css/index_styles.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/game/static/css/play.css" beforeDir="false" afterPath="$PROJECT_DIR$/game/static/css/play.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/game/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/game/templates/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/game/templates/play.html" beforeDir="false" afterPath="$PROJECT_DIR$/game/templates/play.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/instance/test.db" beforeDir="false" afterPath="$PROJECT_DIR$/instance/test.db" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -162,7 +153,8 @@
       <workItem from="1745997803096" duration="833000" />
       <workItem from="1746010088880" duration="17139000" />
       <workItem from="1746597094576" duration="33878000" />
-      <workItem from="1747397073767" duration="9495000" />
+      <workItem from="1747397073767" duration="9977000" />
+      <workItem from="1747994981291" duration="417000" />
     </task>
     <task id="LOCAL-00001" summary="commit--init">
       <option name="closed" value="true" />
@@ -340,7 +332,31 @@
       <option name="project" value="LOCAL" />
       <updated>1746956516732</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="[change]改善npc实现,实现对话">
+      <option name="closed" value="true" />
+      <created>1747406670631</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1747406670631</updated>
+    </task>
+    <task id="LOCAL-00024" summary="[change]改善npc实现,实现对话">
+      <option name="closed" value="true" />
+      <created>1747406682576</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1747406682576</updated>
+    </task>
+    <task id="LOCAL-00025" summary="[add]添加注释">
+      <option name="closed" value="true" />
+      <created>1747407062454</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1747407062454</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -384,7 +400,6 @@
     <MESSAGE value="[unknown]" />
     <MESSAGE value="[add]commit init try" />
     <MESSAGE value="[delete]删除无效html,包括read.html,write.html,login.html,register.html,lab.html,404.html" />
-    <MESSAGE value="[add]添加注释" />
     <MESSAGE value="[add]添加requirements文件," />
     <MESSAGE value="[delete]去除collect-modal以简化逻辑，另外将collect成功后，弹出的模态框直接设为letter-detail-modal[change]统一处理fetch请求错误&#10;[add]处理回信，添加replyToLetter函数&#10;[change]处理无法\n换行问题" />
     <MESSAGE value="[add]新图" />
@@ -392,7 +407,9 @@
     <MESSAGE value="[add]" />
     <MESSAGE value="[add]解决合并问题，加入npc" />
     <MESSAGE value="[change]改善npc实现" />
-    <option name="LAST_COMMIT_MESSAGE" value="[change]改善npc实现" />
+    <MESSAGE value="[change]改善npc实现,实现对话" />
+    <MESSAGE value="[add]添加注释" />
+    <option name="LAST_COMMIT_MESSAGE" value="[add]添加注释" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -400,37 +417,31 @@
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/game/templates/play.html</url>
           <line>422</line>
-          <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="1" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/game/templates/play.html</url>
           <line>445</line>
-          <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="2" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/game/templates/play.html</url>
           <line>446</line>
-          <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="3" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/game/templates/play.html</url>
           <line>447</line>
-          <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="4" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/game/templates/play.html</url>
           <line>448</line>
-          <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="5" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/game/templates/play.html</url>
           <line>449</line>
-          <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="6" />
         </line-breakpoint>
       </breakpoints>
