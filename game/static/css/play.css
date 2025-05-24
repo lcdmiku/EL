@@ -386,11 +386,11 @@ textarea.form-control {
 
 .npc-portrait-A, .npc-portrait-B {
     position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 160px;
-    height: 500px;
-    margin-right: 10px;
+    left: -50px;
+    bottom: 50px;
+    width: 320px;
+    height: 370px;
+    margin-right: 0;
 }
 
 #npc-dialog .modal-content {
@@ -405,7 +405,7 @@ textarea.form-control {
 
 #npc-name{
     position: absolute;
-    top: 10px;
+    top: 0;
     left: 0;
     font-size: 20px;
 }

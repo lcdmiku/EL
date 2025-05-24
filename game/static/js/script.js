@@ -249,16 +249,16 @@ function showCurrentDialog() {
     }
 
     const dialog = currentNPC.dialog[currentDialogIndex];
-    console.log('Current dialog:',dialog);
     document.getElementById('npc-dialog-text').textContent = dialog.dialog;
 
-    // 显示A图片，隐藏B图片
+    // 显示A图片和名字，隐藏B图片
     const portraitA = document.getElementById('npc-portrait-A');
     const portraitB = document.getElementById('npc-portrait-B');
-    console.log('Setting image A:',dialog.image_A);
+    const npcName = document.getElementById('npc-name');
     portraitA.src = dialog.image_A;
     portraitA.style.display = 'block';
     portraitB.style.display = 'none';
+    npcName.textContent = dialog.name_A || currentNPC.name;
 }
 
 // 下一段对话
@@ -274,20 +274,23 @@ function nextDialog() {
     const dialog = currentNPC.dialog[currentDialogIndex];
     document.getElementById('npc-dialog-text').textContent = dialog.dialog;
 
-    // 切换图片
+    // 切换图片和名字
     const portraitA = document.getElementById('npc-portrait-A');
     const portraitB = document.getElementById('npc-portrait-B');
+    const npcName = document.getElementById('npc-name');
 
     if (currentDialogIndex % 2 === 0) {
-        // 偶数索引显示A图片
+        // 偶数索引显示A图片和名字
         portraitA.src = dialog.image_A;
         portraitA.style.display = 'block';
         portraitB.style.display = 'none';
+        npcName.textContent = dialog.name_A || currentNPC.name;
     } else {
-        // 奇数索引显示B图片
+        // 奇数索引显示B图片和名字
         portraitB.src = dialog.image_B;
         portraitB.style.display = 'block';
         portraitA.style.display = 'none';
+        npcName.textContent = dialog.name_B || currentNPC.name;
     }
 }
 
