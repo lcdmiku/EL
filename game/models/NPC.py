@@ -18,6 +18,10 @@ class NPC:
             dialog["state"] = state
         if next_index is not None:
             dialog["next_index"] = next_index
+        if name_A:
+            dialog["name_A"] = name_A
+        if name_B:
+            dialog["name_B"] = name_B
         self.dialogs.append(dialog)
 
     def add_choice(self, option_text, next_index):
