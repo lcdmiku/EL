@@ -27,18 +27,18 @@
             <img src="{{ map_info.npc.image }}" alt="{{ map_info.npc.name }}">
         </div>
 
-<!-- NPC对话框 -->
-<div id="npc-dialog" class="modal">
-    <div class="npc-portrait-container">
-        <img id="npc-portrait-A" class="npc-portrait-A" src="" alt="">
-        <img id="npc-portrait-B" class="npc-portrait-B" src="" alt="" style="display: none;">
-    </div>
-    <div class="modal-content">
-        <h3 id="npc-name">{{ map_info.npc.name }}</h3>
-        <p id="npc-dialog-text"></p>
-        <p class="chat" id="next-dialog-btn">继续</p>
-    </div>
-</div>
+        <!-- NPC对话框 -->
+        <div id="npc-dialog" class="modal">
+            <div class="npc-portrait-container">
+                <img id="npc-portrait-A" class="npc-portrait-A" src="" alt="">
+                <img id="npc-portrait-B" class="npc-portrait-B" src="" alt="" style="display: none;">
+            </div>
+            <div class="modal-content">
+                <h3 id="npc-name">{{ map_info.npc.name }}</h3>
+                <p id="npc-dialog-text"></p>
+                <p class="chat" id="next-dialog-btn">继续</p>
+            </div>
+        </div>
 
         <!-- 位置信息 -->
         <div id="location-info">{{ map_info.address }}</div>
@@ -147,12 +147,15 @@
     </script>
     <script>
         // 初始化游戏
-        document.addEventListener('DOMContentLoaded', function () {
-            const csrfToken = document.querySelector('input[name="csrf_token"]').value;
+        document.addEventListener('mousemove', function() {
             // 自动播放背景音乐
             const bgMusic = document.getElementById('bg-music');
-            bgMusic.play().catch(e => console.log("Autoplay prevented:", e));
-
+            bgMusic.play().catch(e => {
+               console.log(e);
+            });
+        });
+        document.addEventListener('DOMContentLoaded', function () {
+            const csrfToken = document.querySelector('input[name="csrf_token"]').value;
             // 显示当前位置3秒
             showLocationInfo();
 
@@ -183,7 +186,7 @@
             locationInfo.style.opacity = '1';
             setTimeout(() => {
                 locationInfo.style.opacity = '0';
-            }, 3000);
+            }, 1000);
         }
 
         // 显示模态框
@@ -264,6 +267,7 @@
         // 处理写信提交
         async function handleWriteSubmit(e, csrfToken) {
             e.preventDefault();
+            console.log("Writing to server");
             const formData = new FormData(e.target);
             // 处理回信
             const replyToId = document.getElementById('reply-to-id').value;
@@ -397,6 +401,7 @@
             const location_form = document.getElementById('location-form');
             playSelect.value = box.dataset.value;
             location_form.requestSubmit();
+            showLocationInfo();
         }
         //NPC
         function updateNPC(npc){
