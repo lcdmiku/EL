@@ -166,7 +166,7 @@ def write():
 def collect():
     current_user, map_info = get_current_user_and_map_info()
     address_id = map_info['id']
-    print(address_id, map_info)
+    print(address_id, map_info['id'])
     letter = Letter.query.filter(
         and_(
             Letter.address_id == address_id,
