@@ -144,11 +144,26 @@ def read():
     if form.validate_on_submit():
         letters = help_read(current_user, form)
         current_user_info = current_user.to_dict()
-        letter_list = [{"title": letter.title, "content": letter.content,"writer_id":letter.writer_id} for letter in letters] if letters else []
+        letter_list = [{"title": letter.title, "content": letter.content,"writer_id":letter.writer_id,"Is_viewed":letter.Is_viewed,"id":letter.id} for letter in letters] if letters else []
         print(letter_list)
         return jsonify({"action": "read", "letters": letter_list,"user_info":current_user_info})
     return jsonify({"action": "read", "error": "Invalid form"})
 
+#处理未读信件
+@play_bp.route('/Is_viewed', methods=['POST'])
+def Is_viewed():
+    current_user, map_info = get_current_user_and_map_info()
+    print(request.json)
+    if request.json.get('letterId'):
+        letter = Letter.query.filter(Letter.id == request.json['letterId']).first()
+        if letter:
+            letter.Is_viewed = True
+            letter.viewer_id = current_user.id
+            letter.save()
+            return jsonify({"action": "Is_viewed", "letter": letter.to_dict()})
+        else:
+            return jsonify({"action": "Is_not_viewed", "letter": None})
+    return jsonify({"action": "Is_not_viewed", "letter": None})
 
 @play_bp.route('/write', methods=['POST'])
 def write():
