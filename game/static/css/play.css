@@ -172,7 +172,6 @@ body {
 #read-modal{
     background-image: url("../images/letter-paper-1.jpg");
     background-size: 60% 90%;
-
     background-position: center;
     background-repeat: no-repeat;
     flex: 1;
@@ -206,6 +205,35 @@ body {
     width: 700px; /* 设置最小宽度 */
     height: 600px;
     word-wrap: break-word;
+}
+.red_dot{
+    display: none;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: rgb(223, 29, 29);
+    position: absolute;
+    top: 50%;
+    right: 5px;
+}
+
+.letter-item:hover {
+            background-color: #d0eeff;
+}
+.letter-item {
+    position: relative;
+            padding: 10px;
+            margin: 5px 0;
+            background-color: #f5f5f5;
+            border-radius: 4px;
+            cursor: pointer;
+}
+.letter-title {
+    text-align: center;
+    color: #333;
+    margin-bottom: 30px;
+    font-family: 'Great Vibes', cursive;
+    font-size: 32px;
 }
 /*TODO*/
 /*read-detail modal css end*/
@@ -244,23 +272,7 @@ textarea.form-control {
 
         }
 
-.letter-item:hover {
-            background-color: #d0eeff;
-}
-.letter-item {
-            padding: 10px;
-            margin: 5px 0;
-            background-color: #f5f5f5;
-            border-radius: 4px;
-            cursor: pointer;
-}
-.letter-title {
-    text-align: center;
-    color: #333;
-    margin-bottom: 30px;
-    font-family: 'Great Vibes', cursive;
-    font-size: 32px;
-}
+
 
 .notification {
             position: fixed;

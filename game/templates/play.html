@@ -11,7 +11,8 @@
             collect: "{{ url_for('play.collect') }}",
             write: "{{ url_for('play.write') }}",
             read: "{{ url_for('play.read') }}",
-            play: "{{ url_for('play.play') }}"
+            play: "{{ url_for('play.play') }}",
+            Is_viewed: "{{ url_for('play.Is_viewed') }}"
         };
     </script>
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
@@ -325,8 +326,13 @@
                         letterItem.className = 'letter-item';
                         letterItem.innerHTML = `
                             <h4>${letter.title}</h4>
-
+                            <div class="red_dot"></div>
                         `;
+                        //处理未读信息
+                        const RedDot = letterItem.querySelector('.red_dot');
+                        if(letter.Is_viewed === false){
+                            RedDot.style.display = 'flex';
+                        }
                         // 添加点击事件
                         letterItem.addEventListener('click', () => {
                             const modal = document.getElementById('letter-detail-modal');
@@ -340,6 +346,13 @@
                             //
                             modalTitle.textContent = letter.title;
                             modalContent.textContent = letter.content;
+                            //处理没读信件
+                            if (letter.Is_viewed === false) {
+                                RedDot.style.display = 'none';
+                                console.log(letter.id);
+                                markLetterAsRead(letter.id, csrfToken);
+                            }
+
                             showModal('letter-detail-modal');
                         });
                         lettersList.appendChild(letterItem);
@@ -352,6 +365,24 @@
                     }
                 }
             }
+        }
+
+        // 标记信件为已读
+        async function markLetterAsRead(letterId, csrfToken) {
+          const response = await handleFetch(window.urlConfig.Is_viewed, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'X-CSRFToken': csrfToken
+            },
+            body: JSON.stringify({ letterId })
+          });
+
+          if (!response.ok) {
+            throw new Error('标记信件已读失败');
+          }
+
+          return response;
         }
 
         // 处理地图切换
