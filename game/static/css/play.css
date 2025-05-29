@@ -170,7 +170,7 @@ body {
 /*write modal css end*/
 /*read modal css */
 #read-modal{
-    background-image: none;
+    background-image: url("../images/letter-paper-1.jpg");
     background-size: 60% 90%;
     background-position: center;
     background-repeat: no-repeat;
@@ -180,13 +180,17 @@ body {
 
 /*TODO*/
 #read-modal>.form-control {
-     font-size: 1.6em;
+     font-size: 2em;
      font-family: 'Times New Roman', Times, serif;
 }
 #read-form{
     position: sticky;
+    z-index: 100;
+    border-bottom-color: black;
+    border-bottom-style: solid;
     top: 20px; /* 距离视口顶部20px时固定 */
 }
+
 /*read modal css end */
 /*read-detail modal css */
 #letter-detail-modal{
@@ -277,7 +281,7 @@ textarea.form-control {
 .notification {
             position: fixed;
             top: 45%;
-            left: 40%;
+            left: 45%;
             transform: translate(-50%, -50%);
             background-color: rgb(255, 255, 255, 0.8);
             color: #373333;
@@ -314,7 +318,7 @@ textarea.form-control {
     transition: 0.5s;
 }
 .map-image-box>span{
-    font: 200 20px 'Times New Roman', Times, serif;
+    font: 200 35px 'Times New Roman', Times, serif;
     text-align: center;
     height: 15%;
     display: flex;
@@ -397,9 +401,9 @@ textarea.form-control {
 
 .npc-portrait-A, .npc-portrait-B {
     position: absolute;
-    left: 370px;
-    bottom: 190px;
-    width: 250px;
+    left: -50px;
+    bottom: 50px;
+    width: 320px;
     height: 370px;
     margin-right: 0;
 }

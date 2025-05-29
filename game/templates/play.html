@@ -81,6 +81,38 @@
             <source src="{{ map_info.music_file.replace('.mp3', '.ogg') }}" type="audio/ogg">
             Your browser does not support the audio element.
         </audio>
+<!-- 背景音效 -->
+        <audio id="btn-sound-effect">
+            <source src="../static/music/btn_music.mp3" type="audio/ogg" id="btn-sound-effect">
+            Your browser does not support the audio element.
+        </audio>
+         <audio id="address-change-sound" >
+            <source src="../static/music/address_change_music.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+         <audio id="letter-sound-effect" >
+            <source src="../static/music/write.mp3" type="audio/ogg">
+            Your browser does not support the audio element.
+        </audio>
+        <audio id="letter-send-effect" >
+            <source src="../static/music/letter_send_sound.mp3" type="audio/ogg">
+            Your browser does not support the audio element.
+        </audio>
+
+        <!-- GIF -->
+
+        <video class="gif-video" id="letter_open_gif">
+          <source src="../static/images/letter_open.gif" type="video/mp4" >
+          <!-- 备用格式 -->
+          <source src="../static/images/letter_open.gif" type="video/webm">
+          你的浏览器不支持视频标签。
+        </video>
+        <video class="gif-video" id="letter_send_gif">
+          <source src="../static/images/letter_write.gif" type="video/mp4" >
+          <!-- 备用格式 -->
+          <source src="../static/images/letter_write.gif" type="video/webm">
+          你的浏览器不支持视频标签。
+        </video>
 
 {#        <!-- 收集信件模态框 -->将该模态框合并到letter-detail-modal#}
 {#        <div id="collect-modal" class="modal">#}
@@ -120,7 +152,7 @@
                         {{ read_form.letter_type.label }}
                         {{ read_form.letter_type(class="form-control") }}
                     </div>
-                    <button type="submit" class="action-btn">Load</button>
+                    <button type="submit" class="action-btn" onclick="SoundEffect('btn-sound-effect')">Load</button>
                     <button class="action-btn" id="close-r-modal" onclick="closeModal('read-modal')">Close</button>
                 </form>
                 <div id="letters-list" style="margin-top: 20px;"></div>
@@ -190,11 +222,17 @@
             }, 1000);
         }
 
+        //按键音效
+        function SoundEffect(AudioId) {
+            const BtnSound = document.getElementById(AudioId);
+            BtnSound.play();
+        }
 
 
 
         // 关闭模态框
         function closeModal(modalId) {
+            SoundEffect('btn-sound-effect');
             document.getElementById(modalId).style.display = 'none';
         }
 
@@ -282,6 +320,12 @@
             if (data) {
                 if (data.message) {
                     showNotification(data.message);
+                     //动画与音效果
+                    const SendSound = document.getElementById('letter-send-effect');
+                    SendSound.play().catch((error) => {
+                        showNotification(error.message);
+                    })
+
                     e.target.reset();
                     closeModal('write-modal');
                 } else {
@@ -426,6 +470,9 @@
             const location_form = document.getElementById('location-form');
             playSelect.value = box.dataset.value;
             location_form.requestSubmit();
+            //sound effect
+            const AddressChangeSound = document.getElementById('address-change-sound');
+            AddressChangeSound.play();
             showLocationInfo();
         }
         //NPC

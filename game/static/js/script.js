@@ -78,9 +78,16 @@ function showModal(modalId) {
     modal.style.display = 'flex';
     const modalContent = modal.querySelector('.modal-content');
     modalContent.style.animationName = 'openLetter';
-
+ //按键音效
+    const BtnSound = document.getElementById('btn-sound-effect');
+    BtnSound.play();
     if (modalId === 'npc-dialog') {
         currentDialogIndex = 0;
         showCurrentDialog();
     }
+    if (modalId === 'letter-detail-modal' || modalId === 'write-modal') {
+        const LetterSound = document.getElementById('letter-sound-effect');
+        LetterSound.play();
+    }
+
 }

@@ -45,7 +45,8 @@ def help_write(current_user, form,map_info=map_info,reply_to_id=None):
             content = form.content.data
             title = content[:5]+'...'#将title改为content的前五个字符
             signature = form.signature.data
-            content = content + '\n' +f"Yours {signature}"
+            content = (content + '\n' + '\n' +
+                       f"                                                                                      Yours {signature}")
             address_id = map_info['id']
             show_writer = form.show_writer.data
 
