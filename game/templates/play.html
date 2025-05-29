@@ -15,6 +15,11 @@
             Is_viewed: "{{ url_for('play.Is_viewed') }}"
         };
     </script>
+    <style>
+    .emo-sad { color: blue; }
+    .emo-happy { color: orange; }
+    .emo-suggestion { color: white; }
+</style>
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </head>
 
@@ -22,6 +27,11 @@
     <div id="game-container">
         <!-- 地图显示 -->
         <div id="map-display" style="background-image: url('{{ map_info.background_image | default('/static/images/default_bg.jpg') }}')"></div>
+
+{#        <!-- collect elements -->#}
+{#        <div id="collect-item" class="collect-item">#}
+{#            <img src="{{ map_info.collect_item }}" alt="">#}
+{#        </div>#}
 
         <!-- NPC元素 -->
         <div id="npc" class="npc" onclick="showModal('npc-dialog')">
@@ -127,6 +137,8 @@
         <div id="write-modal" class="modal">
             <div class="modal-content">
                 <form id="write-form">
+                    {{ write_form.type.label }}
+                    {{ write_form.type(class="form-control") }}
                     {{ write_form.hidden_tag() }}
                     <input type="hidden" id="reply-to-id" name="reply_to_id">{# 添加回复功能 #}
                     <div class="form-group">
@@ -365,6 +377,10 @@
                         letterItem.innerHTML = `
                             <h4>${letter.title}</h4>
                             <div class="red_dot"></div>
+
+                            <p class="emo-type" style="font-size: 1.6em" >${letter.type}</p>
+
+
                         `;
                         //处理未读信息
                         const RedDot = letterItem.querySelector('.red_dot');

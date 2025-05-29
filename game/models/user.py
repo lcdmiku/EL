@@ -55,8 +55,7 @@ class User(db.Model):
                 'username': self.username,
                 'written_letters': [letter.title for letter in self.written_letters],
                 'received_letters': [letter.title for letter in self.received_letters],
-                'viewed_letters': [letter.title for letter in self.viewed_letters],
-                # 'written_news': [news.title for news in self.written_news]
+                'viewed_letters': [letter.title for letter in self.viewed_letters]
             }
         return data
 
@@ -92,9 +91,7 @@ class Letter(Text):
     viewer_id = db.Column(db.Integer,db.ForeignKey('user.id'),nullable=True)
     #确定是否已阅
     Is_viewed = db.Column(db.Boolean,default=False)
-    #reply letter
-    # reply_id = db.Column(db.Integer,db.ForeignKey('letter.id'),nullable=True)
-    # replied_letter=db.relationship('Letter', backref='reply', lazy='dynamic', foreign_keys='Letter.reply_id')
+    letter_type = db.Column(db.String(64),nullable=True,default = ' ')
 
     def to_dict(self):
         """将letter对象可json化的数据保存到字典中以便前端使用"""
@@ -107,26 +104,9 @@ class Letter(Text):
             'writer_id': self.writer_id,
             'addressee_id': self.addressee_id,
             'viewer_id': self.viewer_id,
-            'Is_viewed': self.Is_viewed
+            'Is_viewed': self.Is_viewed,
+            'letter_type': self.letter_type,
         }
 
 
 
-# news_reader = db.Table('news_reader',
-#                        db.Column('id', db.Integer, primary_key=True, autoincrement=True),
-#                        db.Column('user_id',db.Integer,db.ForeignKey('user.id')),
-#                        db.Column('news_id',db.Integer,db.ForeignKey('news.id')),
-#                        )
-#
-# class News(Text):
-#     __tablename__='news'
-#     views_count = db.Column(db.Integer,default=0)
-#     writer_id = db.Column(db.Integer,db.ForeignKey('user.id'),nullable=False)
-#     #build to viewer
-#     to_viewer = db.relationship('User',
-#                                 secondary= news_reader ,
-#                                 backref = db.backref('viewed_news',lazy='dynamic'),
-#                                 lazy='dynamic',
-#                                 )
-#     #the id of the news board
-#     board_id = db.Column(db.Integer,nullable=False)
