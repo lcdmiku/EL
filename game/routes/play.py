@@ -51,8 +51,9 @@ def help_write(current_user, form,map_info=map_info,reply_to_id=None):
             show_writer = form.show_writer.data
 
             writer_id = current_user.id
-            letter = Letter(title=title, content=content, address_id=address_id,addressee_id=reply_to_id,
-                            Is_show_writer=show_writer, writer_id=writer_id)#去掉addressee
+            emo_type = form.type.data
+            letter = Letter(title=title, content=content, address_id=address_id, addressee_id=reply_to_id,
+                            Is_show_writer=show_writer, writer_id=writer_id, letter_type = emo_type)#去掉addressee
 
             letter.save()
             return 'Letter saved successfully'
@@ -95,6 +96,7 @@ class Write(FlaskForm):
     content = TextAreaField('Content', validators=[DataRequired()])
     signature = StringField('Signature', validators=[])#去除标题,改为写信者的署名
     addressee = StringField('Addressee')  # can be none
+    type = SelectField('EmoType', choices=[(' ',' '),('happy', 'Happy'), ('sad', 'Sad'), ('suggestion', 'Suggestion')])
     # address needn't be provided by user
     # address = SelectField('Address', choices=[(0, 'Address 1'), (1, 'Address 2')], coerce=int, default=0)
     show_writer = BooleanField('Show Writer')  # 默认为false
@@ -145,7 +147,7 @@ def read():
     if form.validate_on_submit():
         letters = help_read(current_user, form)
         current_user_info = current_user.to_dict()
-        letter_list = [{"title": letter.title, "content": letter.content,"writer_id":letter.writer_id,"Is_viewed":letter.Is_viewed,"id":letter.id} for letter in letters] if letters else []
+        letter_list = [{"title": letter.title, "content": letter.content,"writer_id":letter.writer_id,"Is_viewed":letter.Is_viewed,"id":letter.id,"type":letter.letter_type} for letter in letters] if letters else []
         print(letter_list)
         return jsonify({"action": "read", "letters": letter_list,"user_info":current_user_info})
     return jsonify({"action": "read", "error": "Invalid form"})
