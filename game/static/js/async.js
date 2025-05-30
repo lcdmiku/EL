@@ -127,7 +127,7 @@
                                     emoTypeElement.style.color = '#8eb2ef'; // 蓝色
                                     break;
                                 case 'suggestion':
-                                    emoTypeElement.style.color = 'rgba(44,244,131,0.86)';//青色
+                                    emoTypeElement.style.color = 'rgba(44,244,131)';//青色
                                     break;
                                 default:
                                     emoTypeElement.style.color = '#d0eeff';
