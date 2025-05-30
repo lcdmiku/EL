@@ -170,7 +170,7 @@ body {
 /*write modal css end*/
 /*read modal css */
 #read-modal{
-    background-image: url("../images/letter-paper-1.jpg");
+    background-image: none;
     background-size: 60% 90%;
     background-position: center;
     background-repeat: no-repeat;
@@ -195,7 +195,7 @@ body {
 /*read-detail modal css */
 #letter-detail-modal{
     background-image: url("../images/letter-paper-1.jpg");
-    background-size: 60% 90%;
+    background-size: 70% 90%;
 
     background-position: center;
     background-repeat: no-repeat;
@@ -281,7 +281,7 @@ textarea.form-control {
 .notification {
             position: fixed;
             top: 45%;
-            left: 45%;
+            left: 43%;
             transform: translate(-50%, -50%);
             background-color: rgb(255, 255, 255, 0.8);
             color: #373333;
@@ -401,9 +401,9 @@ textarea.form-control {
 
 .npc-portrait-A, .npc-portrait-B {
     position: absolute;
-    left: -50px;
-    bottom: 50px;
-    width: 320px;
+    left: 370px;
+    bottom: 190px;
+    width: 250px;
     height: 370px;
     margin-right: 0;
 }

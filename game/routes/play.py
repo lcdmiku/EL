@@ -23,7 +23,9 @@ class PlayChoice(FlaskForm):
     read_btn = SubmitField('Read')
     write_btn = SubmitField('Write')
     collect_btn = SubmitField('Collect')
-    play = SelectField('Location', choices=[('0', 'Address 1'), ('1', 'Address 2'), ('2', 'Address 3')],  default=0)
+    play = SelectField('Location',
+                       choices=[('0', 'Address 1'), ('1', 'Address 2'), ('2', 'Address 3'), ('3', 'Address 4')],
+                       default=0)
     submit = SubmitField('Submit')
 
     def get_operations(self):
