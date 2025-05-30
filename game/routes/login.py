@@ -40,7 +40,6 @@ def login():
     if request.method == 'POST':
         username = login_form.username.data
         password = login_form.password.data
-        print(username,password)
         user = User.query.filter_by(username=username).first()
         if user is None or not user.check_password(password):
             return jsonify({"action":"login","message": 'username or password is incorrect'})
