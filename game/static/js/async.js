@@ -73,11 +73,7 @@
                 if (data.message) {
                     showNotification(data.message);
                      //动画与音效果
-                    const SendSound = document.getElementById('letter-send-effect');
-                    SendSound.play().catch((error) => {
-                        showNotification(error.message);
-                    })
-
+                    if (data.message!=='Can not reply to yourself'){SoundEffect('letter-send-effect');}
                     e.target.reset();
                     closeModal('write-modal');
                 } else {
