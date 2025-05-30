@@ -1,8 +1,3 @@
-        // 初始化游
-        document.addEventListener('DOMContentLoaded', function () {
-            // 绑定按钮事件
-            document.getElementById('next-dialog-btn').addEventListener('click', nextDialog);
-        });
 // 全局变量存储当前对话状态
 let currentDialogIndex = 0;
 let currentNPC = null;

@@ -36,12 +36,10 @@ def create_app(config_class='config.Config'):
     # 延迟导入蓝图以避免循环导入
     def register_blueprints():
         from .routes.login import login_bp
-        from .routes.pet import pet_bp
         from .routes.play import play_bp
         from .routes.game_ui import ui_bp
 
         app.register_blueprint(login_bp)
-        app.register_blueprint(pet_bp)
         app.register_blueprint(play_bp)
         app.register_blueprint(ui_bp)
 

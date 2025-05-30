@@ -9,7 +9,7 @@ from wtforms.validators import DataRequired
 from sqlalchemy import and_
 from..models.user import *
 from ..models.NPC import NPC
-
+from datetime import datetime
 from.game_ui import Map
 
 
@@ -30,11 +30,11 @@ def get_current_user_and_map_info():
 # 辅助函数，将 current_user 作为参数传入
 def get_letters(current_user, letter_type):
     if letter_type == 'written_letters':
-        return current_user.written_letters.all()
+        return current_user.written_letters.all()[::-1]
     elif letter_type =='received_letters':
-        return current_user.received_letters.all()
+        return current_user.received_letters.all()[::-1]
     elif letter_type == 'viewed_letters':
-        return current_user.viewed_letters.all()
+        return current_user.viewed_letters.all()[::-1]
     else:
         return None
 
@@ -42,8 +42,12 @@ def get_letters(current_user, letter_type):
 def help_write(current_user, form,map_info=map_info,reply_to_id=None):
     if current_user:
         if form.validate_on_submit():
+            #获得但钱时间
+            now = datetime.now()
+            # 格式化输出（自定义格式）
+            formatted_time = now.strftime("%Y-%m-%d %H:%M:%S")
             content = form.content.data
-            title = content[:5]+'...'#将title改为content的前五个字符
+            title = content[:5]+'...'+f'({formatted_time})'#将title改为content的前五个字符
             signature = form.signature.data
             content = (content + '\n' + '\n' +
                        f"                                                                                      Yours {signature}")
@@ -159,7 +163,7 @@ def Is_viewed():
     print(request.json)
     if request.json.get('letterId'):
         letter = Letter.query.filter(Letter.id == request.json['letterId']).first()
-        if letter:
+        if letter and letter.writer_id != current_user.id:
             letter.Is_viewed = True
             letter.viewer_id = current_user.id
             letter.save()
@@ -189,8 +193,8 @@ def collect():
         and_(
             Letter.address_id == address_id,
             Letter.Is_viewed == False,
-            Letter.addressee_id == ''
-
+            Letter.addressee_id == '',
+            Letter.writer_id != current_user.id
         )
     ).first()#TODO Letter.writer_id != current_user.id
 
@@ -205,10 +209,3 @@ def collect():
         letter_dic = letter.to_dict()
         return jsonify({"action": "collect", "message": "Letter collected successfully",'letter': letter_dic})
     return jsonify({"action": "collect", "error": "No letter to collect"})
-
-
-@play_bp.route('/myself_info', methods=['POST'])
-def myself_info():
-    current_user, map_info = get_current_user_and_map_info()
-    user_info = current_user.to_dict()
-    return jsonify({"action": "myself_info", "user_info": user_info})
