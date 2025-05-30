@@ -11,15 +11,44 @@
             collect: "{{ url_for('play.collect') }}",
             write: "{{ url_for('play.write') }}",
             read: "{{ url_for('play.read') }}",
-            play: "{{ url_for('play.play') }}"
+            play: "{{ url_for('play.play') }}",
+            Is_viewed: "{{ url_for('play.Is_viewed') }}"
         };
     </script>
+    <style>
+</style>
+    <script src="{{ url_for('static', filename='js/dialog.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/async.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/help-func.js') }}"></script>
 </head>
 
 <body>
     <div id="game-container">
         <!-- 地图显示 -->
         <div id="map-display" style="background-image: url('{{ map_info.background_image | default('/static/images/default_bg.jpg') }}')"></div>
+
+{#        <!-- collect elements -->#}
+{#        <div id="collect-item" class="collect-item">#}
+{#            <img src="{{ map_info.collect_item }}" alt="">#}
+{#        </div>#}
+
+        <!-- NPC元素 -->
+        <div id="npc" class="npc" onclick="showModal('npc-dialog')">
+            <img src="{{ map_info.npc.image }}" alt="{{ map_info.npc.name }}">
+        </div>
+
+        <!-- NPC对话框 -->
+        <div id="npc-dialog" class="modal">
+            <div class="npc-portrait-container">
+                <img id="npc-portrait-A" class="npc-portrait-A" src="" alt="">
+                <img id="npc-portrait-B" class="npc-portrait-B" src="" alt="" style="display: none;">
+            </div>
+            <div class="modal-content">
+                <h3 id="npc-name">{{ map_info.npc.name }}</h3>
+                <p id="npc-dialog-text"></p>
+                <p class="chat" id="next-dialog-btn">继续</p>
+            </div>
+        </div>
 
         <!-- 位置信息 -->
         <div id="location-info">{{ map_info.address }}</div>
@@ -34,11 +63,19 @@
             <div class="shell">
                 <div class="map-image-box">
                     <img src="../static/images/address1_bg.jpg" alt="" data-value="0" onclick="selectImageAndSubmit(this)">
-                    <span>Image 1</span>
+                    <span>寻找真我</span>
                 </div>
                 <div class="map-image-box" data-value="1" onclick="selectImageAndSubmit(this)">
                     <img src="../static/images/address2_bg.png" alt="">
-                    <span>Image 2</span>
+                    <span>爱是成长的通项公式</span>
+                </div>
+                <div class="map-image-box" data-value="2" onclick="selectImageAndSubmit(this)">
+                    <img src="../static/images/address3_bg.jpg" alt="">
+                    <span>职场倒影与青春突围</span>
+                </div>
+                <div class="map-image-box" data-value="3" onclick="selectImageAndSubmit(this)">
+                    <img src="../static/images/address4_bg.png" alt="">
+                    <span>爷爷的话</span>
                 </div>
             </div>
         </div>
@@ -57,6 +94,38 @@
             <source src="{{ map_info.music_file.replace('.mp3', '.ogg') }}" type="audio/ogg">
             Your browser does not support the audio element.
         </audio>
+        <!-- 背景音效 -->
+        <audio id="btn-sound-effect">
+            <source src="../static/music/btn_music.mp3" type="audio/ogg" id="btn-sound-effect">
+            Your browser does not support the audio element.
+        </audio>
+         <audio id="address-change-sound" >
+            <source src="../static/music/address_change_music.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+         <audio id="letter-sound-effect" >
+            <source src="../static/music/write.mp3" type="audio/ogg">
+            Your browser does not support the audio element.
+        </audio>
+        <audio id="letter-send-effect" >
+            <source src="../static/music/letter_send_sound.mp3" type="audio/ogg">
+            Your browser does not support the audio element.
+        </audio>
+
+        <!-- GIF -->
+
+        <video class="gif-video" id="letter_open_gif">
+          <source src="../static/images/letter_open.gif" type="video/mp4" >
+          <!-- 备用格式 -->
+          <source src="../static/images/letter_open.gif" type="video/webm">
+          你的浏览器不支持视频标签。
+        </video>
+        <video class="gif-video" id="letter_send_gif">
+          <source src="../static/images/letter_write.gif" type="video/mp4" >
+          <!-- 备用格式 -->
+          <source src="../static/images/letter_write.gif" type="video/webm">
+          你的浏览器不支持视频标签。
+        </video>
 
 {#        <!-- 收集信件模态框 -->将该模态框合并到letter-detail-modal#}
 {#        <div id="collect-modal" class="modal">#}
@@ -71,6 +140,8 @@
         <div id="write-modal" class="modal">
             <div class="modal-content">
                 <form id="write-form">
+                    {{ write_form.type.label }}
+                    {{ write_form.type(class="form-control") }}
                     {{ write_form.hidden_tag() }}
                     <input type="hidden" id="reply-to-id" name="reply_to_id">{# 添加回复功能 #}
                     <div class="form-group">
@@ -96,7 +167,7 @@
                         {{ read_form.letter_type.label }}
                         {{ read_form.letter_type(class="form-control") }}
                     </div>
-                    <button type="submit" class="action-btn">Load</button>
+                    <button type="submit" class="action-btn" onclick="SoundEffect('btn-sound-effect')">Load</button>
                     <button class="action-btn" id="close-r-modal" onclick="closeModal('read-modal')">Close</button>
                 </form>
                 <div id="letters-list" style="margin-top: 20px;"></div>
@@ -113,258 +184,13 @@
             </div>
         </div>
 
+
+
         <!-- 通知消息 -->
         <div id="notification" class="notification"></div>
     </div>
-
-    <script>
-        // 初始化游戏
-        document.addEventListener('DOMContentLoaded', function () {
-            const csrfToken = document.querySelector('input[name="csrf_token"]').value;
-            // 自动播放背景音乐
-            const bgMusic = document.getElementById('bg-music');
-            bgMusic.play().catch(e => console.log("Autoplay prevented:", e));
-
-            // 显示当前位置3秒
-            showLocationInfo();
-
-            // 绑定按钮事件
-            document.getElementById('collect-btn').addEventListener('click', function (e) {
-                handleCollect(e, csrfToken);
-            });
-            document.getElementById('write-btn').addEventListener('click', () => showModal('write-modal'));
-            document.getElementById('read-btn').addEventListener('click', () => showModal('read-modal'));
-            document.getElementById('map-selector-btn').addEventListener('click', () => showModal('map-selector-modal'));
-            // 表单提交事件
-            document.getElementById('write-form').addEventListener('submit', function (e) {
-                handleWriteSubmit(e, csrfToken);
-            });
-            document.getElementById('read-form').addEventListener('submit', function (e) {
-                handleReadSubmit(e, csrfToken);
-            });
-            document.getElementById('location-form').addEventListener('submit', function (e) {
-                handleLocationChange(e, csrfToken);
-            });
-        });
-
-        // 显示位置信息3秒
-        function showLocationInfo() {
-            const locationInfo = document.getElementById('location-info');
-            locationInfo.style.opacity = '1';
-            setTimeout(() => {
-                locationInfo.style.opacity = '0';
-            }, 3000);
-        }
-
-        // 显示模态框
-        function showModal(modalId) {
-            const modal = document.getElementById(modalId);
-            modal.style.display = 'flex';
-            const modalContent = modal.querySelector('.modal-content');
-            modalContent.style.animationName = 'openLetter';
-        }
-
-        // 关闭模态框
-        function closeModal(modalId) {
-            document.getElementById(modalId).style.display = 'none';
-        }
-
-        // 显示通知消息
-        function showNotification(message, duration = 3000) {
-            const notification = document.getElementById('notification');
-            notification.textContent = message;
-            notification.style.animationName = 'openLetter';
-            notification.style.display = 'block';
-            setTimeout(() => {
-                notification.style.display = 'none';
-            }, duration);
-        }
-
-        // 统一处理 fetch 请求错误
-        async function handleFetch(url, options) {
-            try {
-                const response = await fetch(url, options);
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                return await response.json();
-            } catch (error) {
-                console.error('Error:', error);
-                showNotification('Network error or server error');
-                return null;
-            }
-        }
-
-        // 处理收集信件
-        async function handleCollect(e, csrfToken) {
-            e.preventDefault();
-            const data = await handleFetch(window.urlConfig.collect, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-Requested-With': 'XMLHttpRequest',
-                    'X-CSRFToken': csrfToken
-                }
-            });
-            if (data) {
-                if (data.message) {
-                    if (data.letter) {
-                        const modal = document.getElementById('letter-detail-modal');
-                        const modalTitle = document.getElementById('letter-modal-title');
-                        const modalContent = document.getElementById('letter-modal-content');
-                        // 处理回信
-                        const modalReplyButton = document.getElementById('reply-button');
-                        modalReplyButton.removeEventListener('click', modalReplyButton.clickHandler);
-                        modalReplyButton.clickHandler = () => replyToLetter(data.letter.writer_id);
-                        modalReplyButton.addEventListener('click', modalReplyButton.clickHandler);
-                        //
-                        modalTitle.textContent = data.letter.title;
-                        modalContent.textContent = data.letter.content;
-                        showModal('letter-detail-modal');
-                    }
-                    {#showModal('collect-modal');#}
-                    showNotification(data.message);
-                } else if (data.error) {
-                    showNotification(data.error);
-                }
-            }
-        }
-
-        // 处理写信提交
-        async function handleWriteSubmit(e, csrfToken) {
-            e.preventDefault();
-            const formData = new FormData(e.target);
-            // 处理回信
-            const replyToId = document.getElementById('reply-to-id').value;
-            if (replyToId) {
-                formData.append('reply_to_id', replyToId);
-                document.getElementById('reply-to-id').value = null;//回信后，清空reply对象
-            } else {
-                formData.append('reply_to_id', null);
-            }
-            const data = await handleFetch(window.urlConfig.write, {
-                method: 'POST',
-                headers: {
-                    'X-CSRFToken': csrfToken
-                },
-                body: formData
-            });
-            if (data) {
-                if (data.message) {
-                    showNotification(data.message);
-                    e.target.reset();
-                    closeModal('write-modal');
-                } else {
-                    if (data.error) {
-                        showNotification(data.error);
-                    } else {
-                        showNotification('Error writing letter');
-                    }
-                }
-            }
-        }
-
-        // 处理回信
-        function replyToLetter(replyToId) {
-            document.getElementById('reply-to-id').value = replyToId;
-            showModal('write-modal');
-        }
-
-        // 处理读信提交
-        async function handleReadSubmit(e, csrfToken) {
-            e.preventDefault();
-            const formData = new FormData(e.target);
-            const data = await handleFetch(window.urlConfig.read, {
-                method: 'POST',
-                headers: {
-                    'X-CSRFToken': csrfToken
-                },
-                body: formData
-            });
-            const lettersList = document.getElementById('letters-list');
-            lettersList.innerHTML = '';
-            if (data) {
-                if (data.letters && data.letters.length > 0) {
-                    data.letters.forEach(letter => {
-                        const letterItem = document.createElement('div');
-                        letterItem.className = 'letter-item';
-                        letterItem.innerHTML = `
-                            <h4>${letter.title}</h4>
-
-                        `;
-                        // 添加点击事件
-                        letterItem.addEventListener('click', () => {
-                            const modal = document.getElementById('letter-detail-modal');
-                            const modalTitle = document.getElementById('letter-modal-title');
-                            const modalContent = document.getElementById('letter-modal-content');
-                            // 处理回信
-                            const modalReplyButton = document.getElementById('reply-button');
-                            modalReplyButton.removeEventListener('click', modalReplyButton.clickHandler);
-                            modalReplyButton.clickHandler = () => replyToLetter(letter.writer_id);
-                            modalReplyButton.addEventListener('click', modalReplyButton.clickHandler);
-                            //
-                            modalTitle.textContent = letter.title;
-                            modalContent.textContent = letter.content;
-                            showModal('letter-detail-modal');
-                        });
-                        lettersList.appendChild(letterItem);
-                    });
-                } else {
-                    if (data.error) {
-                        lettersList.innerHTML = `<p>${data.error}</p>`;
-                    } else {
-                        lettersList.innerHTML = '<p>No letters found</p>';
-                    }
-                }
-            }
-        }
-
-        // 处理地图切换
-        async function handleLocationChange(e, csrfToken) {
-            e.preventDefault();
-            const formData = new FormData(e.target);
-            const newMapData = await handleFetch(window.urlConfig.play, {
-                method: 'POST',
-                headers: {
-                    'X-CSRFToken': csrfToken
-                },
-                body: formData
-            });
-            if (newMapData) {
-                document.getElementById('map-display').style.backgroundImage = `url('${newMapData.map_info.background_image}')`;
-                document.getElementById('location-info').textContent = newMapData.map_info.address;
-                // 获取音频元素
-                const audioElement = document.getElementById('bg-music');
-                // 获取新的音频文件路径
-                const newMusicFile = newMapData.map_info.music_file;
-                // 清除现有的 <source> 元素
-                while (audioElement.firstChild) {
-                    audioElement.removeChild(audioElement.firstChild);
-                }
-                // 创建新的 <source> 元素并添加到音频元素中
-                const sourceMp3 = document.createElement('source');
-                sourceMp3.src = newMusicFile;
-                sourceMp3.type = 'audio/mpeg';
-                audioElement.appendChild(sourceMp3);
-
-                const sourceOgg = document.createElement('source');
-                sourceOgg.src = newMusicFile.replace('.mp3', '.ogg');
-                sourceOgg.type = 'audio/ogg';
-                audioElement.appendChild(sourceOgg);
-
-                // 尝试重新播放音频
-                audioElement.load(); // 重新加载音频文件
-                audioElement.play().catch(e => console.log("Autoplay prevented:", e));
-                closeModal("map-selector-modal");
-            }
-        }
-//切换地图by点击场景图
-        function selectImageAndSubmit(box) {
-            const playSelect = document.getElementById('play');
-            const location_form = document.getElementById('location-form');
-            playSelect.value = box.dataset.value;
-            location_form.requestSubmit();
-        }
+    <script id = "npc-data" type="application/json">
+        {{ map_info.npc | tojson}}
     </script>
 </body>
 

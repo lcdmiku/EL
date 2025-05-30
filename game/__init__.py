@@ -1,6 +1,4 @@
 #game\__init__.py
-from ast import literal_eval
-
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
@@ -30,22 +28,18 @@ def create_app(config_class='config.Config'):
     #create all the tables
     with app.app_context():
         db.create_all()
-    # 配置日志
-
-    logging.debug(f"Before init_app: SQLAlchemy instance: {db}, Flask app: {app}")
-    logging.debug(f"After init_app: SQLAlchemy instance: {db}, Flask app: {app}")
+    # # 配置日志
+    #
+    # logging.debug(f"Before init_app: SQLAlchemy instance: {db}, Flask app: {app}")
+    # logging.debug(f"After init_app: SQLAlchemy instance: {db}, Flask app: {app}")
 
     # 延迟导入蓝图以避免循环导入
     def register_blueprints():
         from .routes.login import login_bp
-        from .routes.pet import pet_bp
         from .routes.play import play_bp
-        from .routes.game_ui import ui_bp
 
         app.register_blueprint(login_bp)
-        app.register_blueprint(pet_bp)
         app.register_blueprint(play_bp)
-        app.register_blueprint(ui_bp)
 
     register_blueprints()
 

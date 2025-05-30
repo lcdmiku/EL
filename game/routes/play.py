@@ -8,8 +8,9 @@ from wtforms.validators import DataRequired
 #sql
 from sqlalchemy import and_
 from..models.user import *
-from.game_ui import Map
-
+from ..models.NPC import NPC
+from datetime import datetime
+from..models.NPC import Map
 
 play_bp = Blueprint('play', __name__)
 
@@ -17,60 +18,14 @@ play_bp = Blueprint('play', __name__)
 map_info = Map[0]#只会在视图函数play中改变
 # 默认地图为 Map[0]
 
-def get_current_user_and_map_info():
-    """防止在play函数之外的地方改变map_infor 和 current_user"""
-    try:
-        current_user = User.current_user(session)
-    except:
-        current_user = None
-        redirect(url_for('login.login'))
-    return current_user, map_info
-# 辅助函数，将 current_user 作为参数传入
-def get_letters(current_user, letter_type):
-    if letter_type == 'written_letters':
-        return current_user.written_letters.all()
-    elif letter_type =='received_letters':
-        return current_user.received_letters.all()
-    elif letter_type == 'viewed_letters':
-        return current_user.viewed_letters.all()
-    elif letter_type == 'written_news':
-        return current_user.written_news.all()
-    else:
-        return None
-
-
-def help_write(current_user, form,map_info=map_info,reply_to_id=None):
-    if current_user:
-        if form.validate_on_submit():
-            content = form.content.data
-            title = content[:5]+'...'#将title改为content的前五个字符
-            signature = form.signature.data
-            content = content + '\n' +f"Yours {signature}"
-            address_id = map_info['id']
-            show_writer = form.show_writer.data
-
-            writer_id = current_user.id
-            letter = Letter(title=title, content=content, address_id=address_id,addressee_id=reply_to_id,
-                            Is_show_writer=show_writer, writer_id=writer_id)#去掉addressee
-
-            letter.save()
-            return 'Letter saved successfully'
-        return 'Invalid form'
-    return 'Please log in to write a letter'
-
-
-def help_read(current_user, form):
-    letter_type = form.letter_type.data
-    letters = get_letters(current_user, letter_type)
-    return letters
-
-
 class PlayChoice(FlaskForm):
     operations = HiddenField('operations')
     read_btn = SubmitField('Read')
     write_btn = SubmitField('Write')
     collect_btn = SubmitField('Collect')
-    play = SelectField('Location', choices=[('0', 'Address 1'), ('1', 'Address 2')],  default=0)
+    play = SelectField('Location',
+                       choices=[('0', 'Address 1'), ('1', 'Address 2'), ('2', 'Address 3'), ('3', 'Address 4')],
+                       default=0)
     submit = SubmitField('Submit')
 
     def get_operations(self):
@@ -86,7 +41,7 @@ class PlayChoice(FlaskForm):
 
 
 class Read(FlaskForm):
-    letter_type = SelectField('Type', choices=[('written_letters', 'Written Letter'), ('received_letters', 'Received Letter'), ('viewed_letters', 'Viewed Letter'), ('written_news', 'Written News')])
+    letter_type = SelectField('Type', choices=[('written_letters', 'Written Letter'), ('received_letters', 'Received Letter'), ('viewed_letters', 'Viewed Letter')])
     submit = SubmitField('Submit')
 
 
@@ -94,10 +49,67 @@ class Write(FlaskForm):
     content = TextAreaField('Content', validators=[DataRequired()])
     signature = StringField('Signature', validators=[])#去除标题,改为写信者的署名
     addressee = StringField('Addressee')  # can be none
+    type = SelectField('EmoType', choices=[(' ',' '),('happy', 'Happy'), ('sad', 'Sad'), ('suggestion', 'Suggestion')])
     # address needn't be provided by user
     # address = SelectField('Address', choices=[(0, 'Address 1'), (1, 'Address 2')], coerce=int, default=0)
     show_writer = BooleanField('Show Writer')  # 默认为false
     submit = SubmitField('Submit')
+
+
+def get_current_user_and_map_info():
+    """防止在play函数之外的地方改变map_infor 和 current_user"""
+    try:
+        current_user = User.current_user(session)
+    except:
+        current_user = None
+        redirect(url_for('login.login'))
+    return current_user, map_info
+# 辅助函数，将 current_user 作为参数传入
+def get_letters(current_user, letter_type):
+    if letter_type == 'written_letters':
+        return current_user.written_letters.all()[::-1]
+    elif letter_type =='received_letters':
+        return current_user.received_letters.all()[::-1]
+    elif letter_type == 'viewed_letters':
+        return current_user.viewed_letters.all()[::-1]
+    else:
+        return None
+
+
+def help_write(current_user, form,map_info=map_info,reply_to_id=None):
+    if current_user:
+        if form.validate_on_submit():
+            #防止自言自语
+            if reply_to_id == f'{current_user.id}':
+                return 'Can not reply to yourself'
+            #获得当前时间
+            now = datetime.now()
+            # 格式化输出（自定义格式）
+            formatted_time = now.strftime("%Y-%m-%d %H:%M:%S")
+            content = form.content.data
+            title = content[:5]+'...'+f'({formatted_time})'#将title改为content的前五个字符
+            signature = form.signature.data
+            content = (content + '\n' + '\n' +
+                       f"                                                                                      Yours {signature}")
+            address_id = map_info['id']
+            show_writer = form.show_writer.data
+
+            writer_id = current_user.id
+            emo_type = form.type.data
+            letter = Letter(title=title, content=content, address_id=address_id, addressee_id=reply_to_id,
+                            Is_show_writer=show_writer, writer_id=writer_id, letter_type = emo_type)#去掉addressee
+
+            letter.save()
+            return 'Letter saved successfully'
+        return 'Invalid form'
+    return 'Please log in to write a letter'
+
+
+def help_read(current_user, form):
+    letter_type = form.letter_type.data
+    letters = get_letters(current_user, letter_type)
+    return letters
+
 
 
 @play_bp.route('/play', methods=['GET', 'POST'])
@@ -132,7 +144,6 @@ def play():
                 map_choice = int(form.play.data)
                 if 0 <= map_choice < len(Map):
                     map_info = Map[int(map_choice)]
-                print(map_info,map_choice)
             return jsonify({'action':'play',"map_info":map_info})
         return render_template('play.html', form=form, message='Invalid form', map_info=map_info, read_form=read_form, write_form=write_form)
 
@@ -144,11 +155,24 @@ def read():
     if form.validate_on_submit():
         letters = help_read(current_user, form)
         current_user_info = current_user.to_dict()
-        letter_list = [{"title": letter.title, "content": letter.content,"writer_id":letter.writer_id} for letter in letters] if letters else []
-        print(letter_list)
+        letter_list = [{"title": letter.title, "content": letter.content,"writer_id":letter.writer_id,"Is_viewed":letter.Is_viewed,"id":letter.id,"type":letter.letter_type} for letter in letters] if letters else []
         return jsonify({"action": "read", "letters": letter_list,"user_info":current_user_info})
     return jsonify({"action": "read", "error": "Invalid form"})
 
+#处理未读信件
+@play_bp.route('/Is_viewed', methods=['POST'])
+def Is_viewed():
+    current_user, map_info = get_current_user_and_map_info()
+    if request.json.get('letterId'):
+        letter = Letter.query.filter(Letter.id == request.json['letterId']).first()
+        if letter and letter.writer_id != current_user.id:
+            letter.Is_viewed = True
+            letter.viewer_id = current_user.id
+            letter.save()
+            return jsonify({"action": "Is_viewed", "letter": letter.to_dict()})
+        else:
+            return jsonify({"action": "Is_not_viewed", "letter": None})
+    return jsonify({"action": "Is_not_viewed", "letter": None})
 
 @play_bp.route('/write', methods=['POST'])
 def write():
@@ -156,7 +180,6 @@ def write():
     form = Write()
     form_data = request.form
     reply_to_id = form_data.get('reply_to_id')
-    print(form_data,form)
     if form.validate_on_submit():
         message = help_write(current_user, form, map_info=map_info,reply_to_id=reply_to_id)
         return jsonify({"action": "write", "message": message})
@@ -166,20 +189,15 @@ def write():
 def collect():
     current_user, map_info = get_current_user_and_map_info()
     address_id = map_info['id']
-    print(address_id, map_info)
     letter = Letter.query.filter(
         and_(
             Letter.address_id == address_id,
             Letter.Is_viewed == False,
-            Letter.addressee_id == ''
-
+            Letter.addressee_id == '',
+            Letter.writer_id != current_user.id
         )
     ).first()#TODO Letter.writer_id != current_user.id
 
-    if letter is None:#竟然是空字符，fuck
-        print('tell me why')
-    else:
-        print('value',type(letter.addressee_id),letter.addressee_id)
     if letter:
         letter.Is_viewed = True
         letter.viewer_id = current_user.id
@@ -187,10 +205,3 @@ def collect():
         letter_dic = letter.to_dict()
         return jsonify({"action": "collect", "message": "Letter collected successfully",'letter': letter_dic})
     return jsonify({"action": "collect", "error": "No letter to collect"})
-
-
-@play_bp.route('/myself_info', methods=['POST'])
-def myself_info():
-    current_user, map_info = get_current_user_and_map_info()
-    user_info = current_user.to_dict()
-    return jsonify({"action": "myself_info", "user_info": user_info})

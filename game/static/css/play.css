@@ -2,7 +2,7 @@
 :root {
             --main-bg-color: rgba(0, 0, 0, 0.7);
             --border-radius: 5px;
-            --success-color: rgb(44, 169, 244);
+            --success-color: rgb(255, 255, 255);
         }
 
 body {
@@ -35,14 +35,13 @@ body {
 
 #location-info {
             position: absolute;
-            top: 20px;
+            top: 50%;
             left: 50%;
             transform: translateX(-50%);
             color: white;
             padding: 10px 20px;
             border-radius: var(--border-radius);
-            font-size: 1.2em;
-            opacity: 0;
+            font-size: 3em;
             transition: opacity 0.5s;
         }
 
@@ -171,9 +170,8 @@ body {
 /*write modal css end*/
 /*read modal css */
 #read-modal{
-    background-image: url("../images/letter-paper-parchment-paper.png");
+    background-image: none;
     background-size: 60% 90%;
-
     background-position: center;
     background-repeat: no-repeat;
     flex: 1;
@@ -182,15 +180,22 @@ body {
 
 /*TODO*/
 #read-modal>.form-control {
-     font-size: 1.6em;
+     font-size: 2em;
      font-family: 'Times New Roman', Times, serif;
+}
+#read-form{
+    position: sticky;
+    z-index: 100;
+    border-bottom-color: black;
+    border-bottom-style: solid;
+    top: 20px; /* 距离视口顶部20px时固定 */
 }
 
 /*read modal css end */
 /*read-detail modal css */
 #letter-detail-modal{
-    background-image: url("../images/letter-paper-parchment-paper.png");
-    background-size: 60% 90%;
+    background-image: url("../images/letter-paper-1.jpg");
+    background-size: 70% 90%;
 
     background-position: center;
     background-repeat: no-repeat;
@@ -204,6 +209,35 @@ body {
     width: 700px; /* 设置最小宽度 */
     height: 600px;
     word-wrap: break-word;
+}
+.red_dot{
+    display: none;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: rgb(223, 29, 29);
+    position: absolute;
+    top: 50%;
+    right: 5px;
+}
+
+.letter-item:hover {
+            background-color: #d0eeff;
+}
+.letter-item {
+    position: relative;
+            padding: 10px;
+            margin: 5px 0;
+            background-color: #f5f5f5;
+            border-radius: 4px;
+            cursor: pointer;
+}
+.letter-title {
+    text-align: center;
+    color: #333;
+    margin-bottom: 30px;
+    font-family: 'Great Vibes', cursive;
+    font-size: 32px;
 }
 /*TODO*/
 /*read-detail modal css end*/
@@ -242,32 +276,16 @@ textarea.form-control {
 
         }
 
-.letter-item:hover {
-            background-color: #d0eeff;
-}
-.letter-item {
-            padding: 10px;
-            margin: 5px 0;
-            background-color: #f5f5f5;
-            border-radius: 4px;
-            cursor: pointer;
-}
-.letter-title {
-    text-align: center;
-    color: #333;
-    margin-bottom: 30px;
-    font-family: 'Great Vibes', cursive;
-    font-size: 32px;
-}
+
 
 .notification {
             position: fixed;
             top: 45%;
-            left: 45%;
+            left: 43%;
             transform: translate(-50%, -50%);
-            background-color: var(--success-color);
-            color: white;
-            font: bold 20px 'Great Vibes', cursive;
+            background-color: rgb(255, 255, 255, 0.8);
+            color: #373333;
+            font: bold 20px "Segoe UI", sans-serif;
             padding: 15px 30px;
             border-radius: var(--border-radius);
             z-index: 200;
@@ -300,7 +318,7 @@ textarea.form-control {
     transition: 0.5s;
 }
 .map-image-box>span{
-    font: 200 45px 'Times New Roman', Times, serif;
+    font: 200 35px 'Times New Roman', Times, serif;
     text-align: center;
     height: 15%;
     display: flex;
@@ -336,6 +354,97 @@ textarea.form-control {
     transform: scale(1.2);
 }
 /* map style end*/
+/*npc */
+.npc {
+    position: absolute;
+    bottom: 90px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 500px;
+    height: 100px;
+    cursor: pointer;
+    transition: transform 0.3s;
+    z-index: 1;
+    background-color: rgb(255, 255, 255, 0.6);
+    border-radius: 15px;
+}
+
+.npc:hover {
+    transform: translateX(-50%) scale(1.1);
+}
+
+.npc img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+#npc-dialog {
+    top: auto;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 200px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-top: 2px solid #ccc;
+    padding: 10px;
+    font-family: "Microsoft YaHei", sans-serif;
+    align-items: center;
+}
+
+.npc-portrait-container {
+    position: relative;
+    width: 160px;
+    height: 160px;
+    margin-right: 20px;
+}
+
+.npc-portrait-A, .npc-portrait-B {
+    position: absolute;
+    left: 370px;
+    bottom: 190px;
+    width: 250px;
+    height: 370px;
+    margin-right: 0;
+}
+
+#npc-dialog .modal-content {
+    flex: 1;
+    padding: 20px;
+    border-radius: 10px;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    position: relative;
+}
+
+#npc-name{
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-size: 20px;
+}
+
+#npc-dialog-text {
+    margin-top: 30px;
+    font-size: 16px;
+    text-align: left;
+}
+
+#npc-dialog .chat {
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
+    font-size: 14px;
+    cursor: pointer;
+    color:  blue;
+}
+
+#npc-dialog .chat:hover {
+    text-decoration: underline;
+}
+
+/*npc end*/
 /*动画效果*/
 @keyframes openLetter {
     from {
