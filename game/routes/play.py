@@ -120,10 +120,10 @@ def play():
     try:
         current_user = User.current_user(session)
     except:
-        return redirect(url_for('login.login'))
+        return redirect(url_for('login.index'))
 
     if not current_user:
-        return redirect(url_for('login.login'))
+        return redirect(url_for('login.index'))
 
     if request.method == 'GET':
         return render_template('play.html', form=form, map_info=map_info, read_form=read_form, write_form=write_form)
